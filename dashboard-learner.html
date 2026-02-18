@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Learning — LearnAtYourOwnPace</title>
+  <link rel="stylesheet" href="assets/css/app.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ── Sidebar ── -->
+  <aside class="app-sidebar">
+    <a href="../index.html" class="sidebar-logo">
+      <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#2547a8"/><circle cx="18" cy="13" r="4.5" fill="#D4A017"/><path d="M18 16.5 Q12 20 8 26 Q13 23 18 25 Q23 23 28 26 Q24 20 18 16.5Z" fill="white" opacity="0.9"/></svg>
+      Learn<span>AtYourOwnPace</span>
+    </a>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Learning</div>
+      <a href="dashboard-learner.html" class="sidebar-link active"><span class="icon">🏠</span> Dashboard</a>
+      <a href="course-view.html" class="sidebar-link"><span class="icon">▶️</span> Continue Learning</a>
+      <a href="#" class="sidebar-link"><span class="icon">📚</span> My Courses</a>
+      <a href="#" class="sidebar-link"><span class="icon">🎓</span> Certificates</a>
+      <div class="sidebar-section-label">Discover</div>
+      <a href="../courses.html" class="sidebar-link"><span class="icon">🔍</span> Browse Courses</a>
+      <a href="../instructors.html" class="sidebar-link"><span class="icon">👩‍🏫</span> Instructors</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">JR</div>
+        <div><div class="sidebar-user-name">James R.</div><div class="sidebar-user-role">Learner</div></div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-overlay"></div>
+
+  <!-- ── Main ── -->
+  <div class="app-main">
+    <header class="app-topbar">
+      <div style="display:flex;align-items:center;gap:0.75rem">
+        <button class="sidebar-toggle">☰</button>
+        <span class="topbar-title">My Dashboard</span>
+      </div>
+      <div class="topbar-right">
+        <button class="topbar-btn" title="Notifications">🔔</button>
+        <a href="login.html" class="btn btn-ghost btn-sm">Log out</a>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <div class="page-header">
+        <div>
+          <h1>Good morning, James 👋</h1>
+          <p>You're on a 5-day learning streak. Keep it up!</p>
+        </div>
+      </div>
+
+      <!-- Progress overview -->
+      <div class="stats-grid" style="margin-bottom:1.5rem">
+        <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-card-label">Enrolled courses</div><div class="stat-card-value">3</div></div>
+        <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-card-label">Lessons completed</div><div class="stat-card-value">18</div><div class="stat-card-delta">+3 this week</div></div>
+        <div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-card-label">Quiz avg. score</div><div class="stat-card-value">87%</div><div class="stat-card-delta">Above average</div></div>
+        <div class="stat-card"><div class="stat-icon">🎓</div><div class="stat-card-label">Certificates earned</div><div class="stat-card-value">1</div></div>
+      </div>
+
+      <!-- Continue learning -->
+      <div class="card mb-lg">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+          <div class="section-title" style="margin-bottom:0">Continue Learning</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--blue-50);border-radius:var(--radius-md);border:1px solid var(--blue-100)">
+          <div style="font-size:2.5rem">📧</div>
+          <div style="flex:1">
+            <div style="font-weight:700;margin-bottom:0.2rem">Email Marketing Mastery</div>
+            <div style="font-size:0.8rem;color:var(--text-light);margin-bottom:0.5rem">Lesson 9 of 12 · Re-engagement campaigns</div>
+            <div class="progress-bar" style="margin-bottom:0.3rem"><div class="progress-fill" style="width:72%"></div></div>
+            <div style="font-size:0.75rem;color:var(--gray-400)">72% complete</div>
+          </div>
+          <a href="course-view.html" class="btn btn-primary">Resume →</a>
+        </div>
+      </div>
+
+      <!-- All enrolled courses -->
+      <div class="card">
+        <div class="section-title">All Enrolled Courses</div>
+
+        <div class="course-list-item">
+          <div class="course-list-thumb">📧</div>
+          <div class="course-list-info">
+            <div class="course-list-title">Email Marketing Mastery for Small Business</div>
+            <div class="course-list-meta">by Sarah Kim · 9/12 lessons complete</div>
+            <div class="progress-bar mt-sm"><div class="progress-fill" style="width:72%"></div></div>
+          </div>
+          <div class="course-list-actions">
+            <a href="course-view.html" class="btn btn-primary btn-sm">Resume</a>
+          </div>
+        </div>
+
+        <div class="course-list-item">
+          <div class="course-list-thumb">⚙️</div>
+          <div class="course-list-info">
+            <div class="course-list-title">SOP Design for Growing Teams</div>
+            <div class="course-list-meta">by Marcus Torres · 3/8 lessons complete</div>
+            <div class="progress-bar mt-sm"><div class="progress-fill" style="width:30%"></div></div>
+          </div>
+          <div class="course-list-actions">
+            <a href="course-view.html" class="btn btn-secondary btn-sm">Continue</a>
+          </div>
+        </div>
+
+        <div class="course-list-item">
+          <div class="course-list-thumb">🤝</div>
+          <div class="course-list-info">
+            <div class="course-list-title">Consultative Selling Fundamentals</div>
+            <div class="course-list-meta">by Jordan Lee · Not started</div>
+            <div class="progress-bar mt-sm"><div class="progress-fill" style="width:0%"></div></div>
+          </div>
+          <div class="course-list-actions">
+            <a href="course-view.html" class="btn btn-ghost btn-sm">Start</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

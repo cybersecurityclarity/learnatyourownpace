@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — LearnAtYourOwnPace</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    .story-section { max-width: 720px; margin: 0 auto; }
+    .story-section p { font-size: 1.05rem; color: var(--text-light); margin-bottom: 1.25rem; line-height: 1.8; }
+    .story-section h3 { color: var(--blue); margin: var(--space-lg) 0 var(--space-sm); }
+    .pull-quote { border-left: 4px solid var(--gold); padding: 1rem var(--space-md); background: var(--gold-50); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: var(--space-lg) 0; font-family: var(--font-display); font-size: 1.2rem; color: var(--text); font-style: italic; }
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="nav-logo">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#1E3A8A"/><circle cx="18" cy="13" r="4.5" fill="#D4A017"/><path d="M18 16.5 Q12 20 8 26 Q13 23 18 25 Q23 23 28 26 Q24 20 18 16.5Z" fill="white" opacity="0.9"/><line x1="14" y1="10" x2="13" y2="7.5" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/><line x1="22" y1="10" x2="23" y2="7.5" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/><line x1="18" y1="9" x2="18" y2="6.5" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Learn<span>AtYourOwnPace</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="courses.html">Browse Courses</a></li>
+      <li><a href="instructors.html">Instructors</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="app/login.html" class="btn btn-secondary btn-sm">Log in</a>
+      <a href="pricing.html" class="btn btn-primary btn-sm">Get started free</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Our story</h1>
+    <p>Built by an instructor who got tired of paying $100/month to earn $0.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="story-section">
+      <h3>Where this started</h3>
+      <p>A few years ago, we needed to teach a small group of clients a skills-based process. Simple enough — except the platform options were either clunky and old, or slick and expensive.</p>
+      <p>We signed up for one of the popular platforms. $119/month. We built our course, enrolled our first five learners, and held our breath. Two months later, we had made $0 in revenue from the course — but we'd paid $238 to host it.</p>
+
+      <div class="pull-quote">"The platform assumed we were already profitable. We were just getting started."</div>
+
+      <p>That's when the frustration turned into a question: <em>why does teaching online have to cost this much before you've even proven there's demand?</em></p>
+      <p>We looked at the features we actually used: a course builder, lesson pages, progress tracking, and a way to collect payment. That's it. Everything else — live webinar tools, advanced funnels, complex affiliate systems — we didn't touch. But we were paying for all of it.</p>
+
+      <h3>What we built instead</h3>
+      <p>LearnAtYourOwnPace is the platform we wished existed. It's designed for instructors who want to start lean, test their content with real learners, and grow without being taxed into unprofitability by their own tools.</p>
+      <p>We made one deliberate trade-off: we don't host video. You link your videos from wherever you already have them — YouTube unlisted, Vimeo, Loom, wherever. This keeps our infrastructure costs low, which lets us keep the price low. It also keeps you in control of your content.</p>
+      <p>Everything else — course builder, quizzes, completion certificates, progress analytics, payments — is built in. Not added as a premium upsell. Just there, for $20/month.</p>
+
+      <h3>Who this is for</h3>
+      <p>Independent instructors. Coaches. Corporate trainers building internal learning materials. Subject matter experts who've been told "you should teach a course" but don't want to over-invest before proving the concept.</p>
+      <p>We're not built for the VC-funded EdTech company with a team of engineers. We're built for the person who knows their subject, wants to teach it well, and wants a platform that gets out of the way.</p>
+
+      <h3>Our values</h3>
+      <div class="values-grid">
+        <div class="card"><div class="card-icon">🎯</div><h4>Simplicity over features</h4><p>We'd rather do fewer things well than overwhelm you with tools you'll never use.</p></div>
+        <div class="card"><div class="card-icon">💰</div><h4>Honest pricing</h4><p>Flat rate. No commissions. No per-learner fees. No surprise invoices.</p></div>
+        <div class="card"><div class="card-icon">🔓</div><h4>Your content, your data</h4><p>You own your courses and your learner relationships. Always.</p></div>
+        <div class="card"><div class="card-icon">🤝</div><h4>Built with instructors</h4><p>We talk to real instructors and build what they ask for — not what looks good in a pitch deck.</p></div>
+      </div>
+
+      <div style="margin-top:var(--space-xl);text-align:center">
+        <a href="pricing.html" class="btn btn-primary btn-lg">Start teaching free</a>
+        <p style="margin-top:1rem;font-size:0.88rem;color:var(--gray-400)">No credit card. No risk. Just build.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><svg width="28" height="28" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#2547a8"/><circle cx="18" cy="13" r="4.5" fill="#D4A017"/><path d="M18 16.5 Q12 20 8 26 Q13 23 18 25 Q23 23 28 26 Q24 20 18 16.5Z" fill="white" opacity="0.9"/></svg>Learn<span>AtYourOwnPace</span></a><p>Premium LMS tools for instructors who refuse to overpay.</p></div>
+      <div class="footer-col"><h5>Platform</h5><a href="courses.html">Browse Courses</a><a href="instructors.html">Instructors</a><a href="niches.html">Categories</a><a href="pricing.html">Pricing</a></div>
+      <div class="footer-col"><h5>Instructors</h5><a href="pricing.html">Start free</a><a href="app/dashboard-instructor.html">Dashboard</a></div>
+      <div class="footer-col"><h5>Company</h5><a href="about.html">About</a><a href="contact.html">Contact</a><a href="#">Privacy</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 LearnAtYourOwnPace.com</span><span>Made for instructors who teach first, tech second.</span></div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

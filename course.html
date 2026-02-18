@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Marketing Mastery — LearnAtYourOwnPace</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    .course-hero { background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%); color: var(--white); padding: var(--space-xl) 0; }
+    .course-hero h1 { color: var(--white); font-size: clamp(1.6rem, 3.5vw, 2.6rem); margin-bottom: 0.75rem; }
+    .course-hero p { color: rgba(255,255,255,0.8); max-width: 600px; margin-bottom: 1rem; }
+    .course-meta-row { display: flex; flex-wrap: wrap; gap: 1.2rem; font-size: 0.88rem; color: rgba(255,255,255,0.65); margin-bottom: 1.5rem; }
+    .course-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+    .course-layout { display: grid; grid-template-columns: 1fr 340px; gap: var(--space-xl); align-items: start; }
+    .course-sidebar { position: sticky; top: 84px; }
+    .enroll-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-lg); }
+    .enroll-price { font-family: var(--font-display); font-size: 2.4rem; color: var(--blue); margin-bottom: 0.5rem; }
+    .instructor-mini { display: flex; align-items: center; gap: 0.9rem; padding: var(--space-md) 0; border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100); margin: var(--space-md) 0; }
+    .instructor-mini-avatar { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--blue-light)); color: var(--white); font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .instructor-mini-name { font-weight: 700; color: var(--text); }
+    .instructor-mini-role { font-size: 0.82rem; color: var(--text-light); }
+    .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+    @media (max-width: 900px) { .course-layout { grid-template-columns: 1fr; } .course-sidebar { position: static; } .reviews-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="nav-logo">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#1E3A8A"/><circle cx="18" cy="13" r="4.5" fill="#D4A017"/><path d="M18 16.5 Q12 20 8 26 Q13 23 18 25 Q23 23 28 26 Q24 20 18 16.5Z" fill="white" opacity="0.9"/><line x1="14" y1="10" x2="13" y2="7.5" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/><line x1="22" y1="10" x2="23" y2="7.5" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/><line x1="18" y1="9" x2="18" y2="6.5" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Learn<span>AtYourOwnPace</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="courses.html" class="active">Browse Courses</a></li>
+      <li><a href="instructors.html">Instructors</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="app/login.html" class="btn btn-secondary btn-sm">Log in</a>
+      <a href="pricing.html" class="btn btn-primary btn-sm">Get started free</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<div class="course-hero">
+  <div class="container">
+    <span class="course-niche-tag" style="background:rgba(255,255,255,0.15);color:var(--white);margin-bottom:0.75rem;display:inline-block">Marketing</span>
+    <h1>Email Marketing Mastery for Small Business</h1>
+    <p>Learn to build, segment, and convert your email list — even if you're starting from zero. Practical, no-fluff lessons with real examples.</p>
+    <div class="course-meta-row">
+      <span><span class="stars" style="font-size:1rem">★★★★★</span> 4.9 (84 reviews)</span>
+      <span>📚 12 lessons</span>
+      <span>⏱ ~4 hours</span>
+      <span>👥 212 learners enrolled</span>
+      <span>🔄 Last updated October 2025</span>
+    </div>
+    <div class="instructor-mini" style="border:none;padding:0;margin:0;background:transparent">
+      <div class="instructor-mini-avatar">SK</div>
+      <div>
+        <div class="instructor-mini-name" style="color:var(--white)">Sarah Kim</div>
+        <div class="instructor-mini-role" style="color:rgba(255,255,255,0.6)">Email strategist · 3 courses</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="course-layout">
+      <div>
+        <!-- What you'll learn -->
+        <h3 style="margin-bottom:1rem">What you'll learn</h3>
+        <div class="grid-2" style="margin-bottom:var(--space-lg)">
+          <div style="display:flex;gap:0.5rem;font-size:0.9rem;align-items:flex-start"><span style="color:var(--blue);flex-shrink:0">✓</span> Build a list from scratch with lead magnets</div>
+          <div style="display:flex;gap:0.5rem;font-size:0.9rem;align-items:flex-start"><span style="color:var(--blue);flex-shrink:0">✓</span> Write subject lines that get opened</div>
+          <div style="display:flex;gap:0.5rem;font-size:0.9rem;align-items:flex-start"><span style="color:var(--blue);flex-shrink:0">✓</span> Segment your audience for better results</div>
+          <div style="display:flex;gap:0.5rem;font-size:0.9rem;align-items:flex-start"><span style="color:var(--blue);flex-shrink:0">✓</span> Build automated welcome sequences</div>
+          <div style="display:flex;gap:0.5rem;font-size:0.9rem;align-items:flex-start"><span style="color:var(--blue);flex-shrink:0">✓</span> Understand key metrics: open rate, CTR, unsubscribes</div>
+          <div style="display:flex;gap:0.5rem;font-size:0.9rem;align-items:flex-start"><span style="color:var(--blue);flex-shrink:0">✓</span> Set up a simple promotional campaign</div>
+        </div>
+
+        <!-- Syllabus -->
+        <h3 style="margin-bottom:1rem">Course curriculum</h3>
+        <div class="syllabus-list" style="margin-bottom:var(--space-lg)">
+          <div class="syllabus-item unlocked"><span class="syllabus-num">01</span><span class="syllabus-lock">🔓</span><span class="syllabus-title">Why email marketing still works in 2025</span><span class="syllabus-duration">18 min</span></div>
+          <div class="syllabus-item unlocked"><span class="syllabus-num">02</span><span class="syllabus-lock">🔓</span><span class="syllabus-title">Choosing and setting up your email platform</span><span class="syllabus-duration">22 min</span></div>
+          <div class="syllabus-item locked"><span class="syllabus-num">03</span><span class="syllabus-lock">🔒</span><span class="syllabus-title">Building your first lead magnet</span><span class="syllabus-duration">25 min</span></div>
+          <div class="syllabus-item locked"><span class="syllabus-num">04</span><span class="syllabus-lock">🔒</span><span class="syllabus-title">List segmentation strategies</span><span class="syllabus-duration">20 min</span></div>
+          <div class="syllabus-item locked"><span class="syllabus-num">05</span><span class="syllabus-lock">🔒</span><span class="syllabus-title">Writing subject lines that convert</span><span class="syllabus-duration">19 min</span></div>
+          <div class="syllabus-item locked"><span class="syllabus-num">06</span><span class="syllabus-lock">🔒</span><span class="syllabus-title">Your welcome sequence — step by step</span><span class="syllabus-duration">28 min</span></div>
+          <div class="syllabus-item locked"><span class="syllabus-num">07</span><span class="syllabus-lock">🔒</span><span class="syllabus-title">Email design best practices</span><span class="syllabus-duration">15 min</span></div>
+          <div class="syllabus-item locked"><span class="syllabus-num">08</span><span class="syllabus-lock">🔒</span><span class="syllabus-title">Promotional campaigns: timing and structure</span><span class="syllabus-duration">24 min</span></div>
+          <div class="syllabus-item locked"><span class="syllabus-num">09</span><span class="syllabus-lock">🔒</span><span class="syllabus-title">Re-engagement campaigns</span><span class="syllabus-duration">18 min</span></div>
+          <div class="syllabus-item locked"><span class="syllabus-num">10</span><span class="syllabus-lock">🔒</span><span class="syllabus-title">Reading your analytics</span><span class="syllabus-duration">16 min</span></div>
+          <div class="syllabus-item locked"><span class="syllabus-num">11</span><span class="syllabus-lock">🔒</span><span class="syllabus-title">A/B testing for continuous improvement</span><span class="syllabus-duration">20 min</span></div>
+          <div class="syllabus-item locked"><span class="syllabus-num">12</span><span class="syllabus-lock">🔒</span><span class="syllabus-title">Building your 90-day email strategy</span><span class="syllabus-duration">22 min</span></div>
+        </div>
+
+        <!-- Instructor -->
+        <h3 style="margin-bottom:1rem">About the instructor</h3>
+        <div class="instructor-mini" style="border-radius:var(--radius-md);padding:var(--space-md);background:var(--gray-50);border:1px solid var(--gray-100);margin-bottom:var(--space-lg)">
+          <div class="instructor-mini-avatar" style="width:64px;height:64px;font-size:1.4rem">SK</div>
+          <div>
+            <div class="instructor-mini-name" style="font-size:1.1rem">Sarah Kim</div>
+            <div class="instructor-mini-role">Email strategist with 8+ years helping small businesses grow through direct marketing. Former agency lead, now teaching full-time.</div>
+            <a href="instructor.html" style="color:var(--blue);font-size:0.85rem;font-weight:600;margin-top:0.3rem;display:inline-block">View full profile →</a>
+          </div>
+        </div>
+
+        <!-- Reviews -->
+        <h3 style="margin-bottom:1rem">Learner reviews</h3>
+        <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.25rem">
+          <div style="text-align:center"><div style="font-size:3rem;font-weight:700;color:var(--blue);font-family:var(--font-display);line-height:1">4.9</div><div class="stars" style="font-size:1.2rem">★★★★★</div><div style="font-size:0.78rem;color:var(--gray-400)">84 reviews</div></div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.3rem"><div style="flex:1;height:6px;background:var(--gray-200);border-radius:3px;overflow:hidden"><div style="width:88%;height:100%;background:var(--blue);border-radius:3px"></div></div><span style="font-size:0.78rem;color:var(--gray-400);min-width:20px">5★</span></div>
+            <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.3rem"><div style="flex:1;height:6px;background:var(--gray-200);border-radius:3px;overflow:hidden"><div style="width:9%;height:100%;background:var(--blue);border-radius:3px"></div></div><span style="font-size:0.78rem;color:var(--gray-400);min-width:20px">4★</span></div>
+            <div style="display:flex;align-items:center;gap:0.5rem"><div style="flex:1;height:6px;background:var(--gray-200);border-radius:3px;overflow:hidden"><div style="width:3%;height:100%;background:var(--blue);border-radius:3px"></div></div><span style="font-size:0.78rem;color:var(--gray-400);min-width:20px">3★</span></div>
+          </div>
+        </div>
+        <div class="reviews-grid">
+          <div class="review-card"><div class="review-header"><div class="review-avatar">JR</div><div><div class="review-name">James R.</div><div class="review-date">Nov 2025</div></div><div class="stars" style="margin-left:auto;font-size:0.9rem">★★★★★</div></div><p class="review-text">Practical and clear. I implemented the welcome sequence the same week and already see better open rates.</p></div>
+          <div class="review-card"><div class="review-header"><div class="review-avatar">TM</div><div><div class="review-name">Tanya M.</div><div class="review-date">Oct 2025</div></div><div class="stars" style="margin-left:auto;font-size:0.9rem">★★★★★</div></div><p class="review-text">Finally a course that skips the fluff and gets to what actually works. Worth every penny.</p></div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="course-sidebar">
+        <div class="enroll-card">
+          <div class="enroll-price">$49</div>
+          <a href="app/login.html" class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:0.75rem">Enroll now</a>
+          <a href="app/login.html" class="btn btn-secondary" style="width:100%;justify-content:center">Preview free lessons</a>
+          <div style="margin-top:var(--space-md);font-size:0.82rem;color:var(--text-light)">
+            <div style="display:flex;gap:0.5rem;padding:0.3rem 0;border-bottom:1px solid var(--gray-100)"><span>📚</span><span>12 lessons</span></div>
+            <div style="display:flex;gap:0.5rem;padding:0.3rem 0;border-bottom:1px solid var(--gray-100)"><span>⏱</span><span>~4 hours of content</span></div>
+            <div style="display:flex;gap:0.5rem;padding:0.3rem 0;border-bottom:1px solid var(--gray-100)"><span>📝</span><span>Quizzes included</span></div>
+            <div style="display:flex;gap:0.5rem;padding:0.3rem 0;border-bottom:1px solid var(--gray-100)"><span>🎓</span><span>Certificate on completion</span></div>
+            <div style="display:flex;gap:0.5rem;padding:0.3rem 0"><span>♾️</span><span>Lifetime access</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><svg width="28" height="28" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#2547a8"/><circle cx="18" cy="13" r="4.5" fill="#D4A017"/><path d="M18 16.5 Q12 20 8 26 Q13 23 18 25 Q23 23 28 26 Q24 20 18 16.5Z" fill="white" opacity="0.9"/></svg>Learn<span>AtYourOwnPace</span></a><p>Premium LMS tools for instructors who refuse to overpay.</p></div>
+      <div class="footer-col"><h5>Platform</h5><a href="courses.html">Browse Courses</a><a href="instructors.html">Instructors</a><a href="niches.html">Categories</a><a href="pricing.html">Pricing</a></div>
+      <div class="footer-col"><h5>Instructors</h5><a href="pricing.html">Start free</a><a href="app/dashboard-instructor.html">Dashboard</a><a href="app/course-builder.html">Course Builder</a></div>
+      <div class="footer-col"><h5>Company</h5><a href="about.html">About</a><a href="contact.html">Contact</a><a href="#">Privacy Policy</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 LearnAtYourOwnPace.com</span><span>Made for instructors who teach first, tech second.</span></div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

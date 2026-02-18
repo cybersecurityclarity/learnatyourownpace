@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Builder — LearnAtYourOwnPace</title>
+  <link rel="stylesheet" href="assets/css/app.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <aside class="app-sidebar">
+    <a href="../index.html" class="sidebar-logo">
+      <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#2547a8"/><circle cx="18" cy="13" r="4.5" fill="#D4A017"/><path d="M18 16.5 Q12 20 8 26 Q13 23 18 25 Q23 23 28 26 Q24 20 18 16.5Z" fill="white" opacity="0.9"/></svg>
+      Learn<span>AtYourOwnPace</span>
+    </a>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Instructor</div>
+      <a href="dashboard-instructor.html" class="sidebar-link"><span class="icon">📊</span> Dashboard</a>
+      <a href="course-builder.html" class="sidebar-link active"><span class="icon">➕</span> New Course</a>
+      <a href="#" class="sidebar-link"><span class="icon">📚</span> My Courses</a>
+      <a href="#" class="sidebar-link"><span class="icon">👥</span> Learners</a>
+      <a href="#" class="sidebar-link"><span class="icon">💰</span> Revenue</a>
+      <div class="sidebar-section-label">Account</div>
+      <a href="../index.html" class="sidebar-link"><span class="icon">🌐</span> View public site</a>
+      <a href="#" class="sidebar-link"><span class="icon">⚙️</span> Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">SK</div>
+        <div><div class="sidebar-user-name">Sarah Kim</div><div class="sidebar-user-role">Instructor · Starter</div></div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-overlay"></div>
+
+  <div class="app-main">
+    <header class="app-topbar">
+      <div style="display:flex;align-items:center;gap:0.75rem">
+        <button class="sidebar-toggle">☰</button>
+        <span class="topbar-title">Course Builder</span>
+      </div>
+      <div class="topbar-right">
+        <button id="save-draft-btn" class="btn btn-secondary btn-sm">Save draft</button>
+        <button id="publish-btn" class="btn btn-primary btn-sm">Publish course</button>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <div class="page-header">
+        <div>
+          <h1>Create a New Course</h1>
+          <p>Fill in the details below. You can save a draft at any time.</p>
+        </div>
+      </div>
+
+      <!-- ── Course details ── -->
+      <div class="card mb-lg">
+        <div class="section-title">Course Details</div>
+        <div class="form-group">
+          <label class="form-label">Course title *</label>
+          <input type="text" class="form-input" placeholder="e.g. Email Marketing Mastery for Small Business" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Course description *</label>
+          <textarea class="form-input" rows="4" placeholder="What will learners be able to do after completing this course?"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Niche / category</label>
+            <!-- TODO: fetch categories from Supabase: supabase.from('niches').select('*') -->
+            <select class="form-input">
+              <option value="">Select a niche</option>
+              <option>Marketing</option>
+              <option>Sales</option>
+              <option>Leadership</option>
+              <option>Operations</option>
+              <option>Finance</option>
+              <option>Technology</option>
+              <option>Design</option>
+              <option>Wellness</option>
+              <option>Productivity</option>
+              <option>Entrepreneurship</option>
+              <option>Communication</option>
+              <option>HR &amp; People Ops</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price</label>
+            <div style="display:flex;gap:0.5rem;align-items:center">
+              <select class="form-input" style="max-width:90px">
+                <option>$</option>
+                <option>Free</option>
+              </select>
+              <input type="number" class="form-input" placeholder="49.00" min="0" step="0.01" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Lessons ── -->
+      <div class="card mb-lg">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+          <div class="section-title" style="margin-bottom:0">Lessons</div>
+          <button id="add-lesson-btn" class="btn btn-secondary btn-sm">+ Add lesson</button>
+        </div>
+        <p style="font-size:0.82rem;color:var(--gray-400);margin-bottom:1rem">Paste a video link from YouTube (unlisted), Vimeo, Loom, or any public video URL. No uploading needed.</p>
+
+        <div id="lessons-container">
+          <!-- Lesson 1 -->
+          <div class="lesson-item">
+            <span class="lesson-handle">⠿</span>
+            <span class="lesson-number">01</span>
+            <div class="lesson-body" style="flex:1">
+              <div class="form-group mb-sm">
+                <input type="text" class="form-input lesson-title-input" placeholder="Lesson title" value="Why email marketing still works in 2025" />
+              </div>
+              <div class="form-group mb-sm">
+                <input type="url" class="form-input" placeholder="Video link (YouTube, Vimeo, Loom…)" value="https://youtu.be/example-video-id" />
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <textarea class="form-input" rows="2" placeholder="Notes / resources (optional)">Intro slides available in the resources folder.</textarea>
+              </div>
+            </div>
+          </div>
+          <!-- Lesson 2 -->
+          <div class="lesson-item">
+            <span class="lesson-handle">⠿</span>
+            <span class="lesson-number">02</span>
+            <div class="lesson-body" style="flex:1">
+              <div class="form-group mb-sm">
+                <input type="text" class="form-input lesson-title-input" placeholder="Lesson title" value="Choosing and setting up your email platform" />
+              </div>
+              <div class="form-group mb-sm">
+                <input type="url" class="form-input" placeholder="Video link (YouTube, Vimeo, Loom…)" />
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <textarea class="form-input" rows="2" placeholder="Notes / resources (optional)"></textarea>
+              </div>
+            </div>
+            <button class="btn btn-sm" style="color:#dc2626;border-color:#dc2626;margin-left:0.5rem;flex-shrink:0;align-self:flex-start" onclick="this.closest('.lesson-item').remove()">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Quiz builder ── -->
+      <div class="card mb-lg">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+          <div>
+            <div class="section-title" style="margin-bottom:0.2rem">Quiz</div>
+            <p style="font-size:0.82rem;color:var(--gray-400)">Add multiple-choice questions for this course. Learners must pass to earn a certificate.</p>
+          </div>
+          <button id="add-question-btn" class="btn btn-secondary btn-sm">+ Add question</button>
+        </div>
+
+        <div id="quiz-container">
+          <!-- Sample question -->
+          <div class="card mb-md" style="background:var(--gray-50)">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
+              <div class="section-title" style="font-size:1rem;margin-bottom:0">Question 1</div>
+              <button class="btn btn-sm" style="color:#dc2626;border-color:#dc2626">Remove</button>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-input" value="What is the most important metric for email marketing success?" />
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.75rem">
+              <div class="quiz-option"><input type="radio" name="q1_sample" id="q1_s1" /><label for="q1_s1" style="font-size:0.82rem;color:var(--text-light);min-width:72px">Option 1</label><input type="text" class="form-input" style="flex:1" value="Follower count" /></div>
+              <div class="quiz-option"><input type="radio" name="q1_sample" id="q1_s2" checked /><label for="q1_s2" style="font-size:0.82rem;color:var(--text-light);min-width:72px">Option 2 ✓</label><input type="text" class="form-input" style="flex:1" value="Open rate and click-through rate" /></div>
+              <div class="quiz-option"><input type="radio" name="q1_sample" id="q1_s3" /><label for="q1_s3" style="font-size:0.82rem;color:var(--text-light);min-width:72px">Option 3</label><input type="text" class="form-input" style="flex:1" value="Number of sent emails" /></div>
+              <div class="quiz-option"><input type="radio" name="q1_sample" id="q1_s4" /><label for="q1_s4" style="font-size:0.82rem;color:var(--text-light);min-width:72px">Option 4</label><input type="text" class="form-input" style="flex:1" value="Unsubscribe rate only" /></div>
+            </div>
+            <div class="form-hint">☝️ The selected radio button marks the correct answer.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:0.5rem">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Passing score (%)</label>
+              <input type="number" class="form-input" value="70" min="1" max="100" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Max attempts</label>
+              <select class="form-input">
+                <option>Unlimited</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Certificate ── -->
+      <div class="card mb-lg">
+        <div class="section-title">Completion Certificate</div>
+        <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--blue-50);border-radius:var(--radius-md);border:1px solid var(--blue-100)">
+          <span style="font-size:1.5rem">🎓</span>
+          <div>
+            <div style="font-weight:600;font-size:0.9rem">Auto-issued on course completion</div>
+            <div style="font-size:0.8rem;color:var(--text-light)">Certificate will display course title, learner name, and your instructor name. <a href="#" style="color:var(--blue)">Customize branding →</a></div>
+          </div>
+          <label style="display:flex;align-items:center;gap:0.4rem;margin-left:auto;cursor:pointer">
+            <input type="checkbox" checked /> <span style="font-size:0.85rem;font-weight:600">Enabled</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ── Save / Publish ── -->
+      <div style="display:flex;gap:0.75rem;justify-content:flex-end;padding-top:0.5rem">
+        <a href="dashboard-instructor.html" class="btn btn-ghost">Cancel</a>
+        <button id="save-draft-btn-2" class="btn btn-secondary" onclick="document.getElementById('save-draft-btn').click()">Save draft</button>
+        <button id="publish-btn-2" class="btn btn-primary btn-lg" onclick="document.getElementById('publish-btn').click()">🚀 Publish course</button>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — LearnAtYourOwnPace</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
+    .form-group { margin-bottom: var(--space-md); }
+    .form-label { display: block; font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+    .form-input { width: 100%; padding: 0.75rem 1rem; border: 2px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 0.95rem; transition: border-color var(--transition); outline: none; background: var(--white); }
+    .form-input:focus { border-color: var(--blue); }
+    textarea.form-input { resize: vertical; min-height: 140px; }
+    @media (max-width: 768px) { .contact-layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="nav-logo">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#1E3A8A"/><circle cx="18" cy="13" r="4.5" fill="#D4A017"/><path d="M18 16.5 Q12 20 8 26 Q13 23 18 25 Q23 23 28 26 Q24 20 18 16.5Z" fill="white" opacity="0.9"/><line x1="14" y1="10" x2="13" y2="7.5" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/><line x1="22" y1="10" x2="23" y2="7.5" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/><line x1="18" y1="9" x2="18" y2="6.5" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Learn<span>AtYourOwnPace</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="courses.html">Browse Courses</a></li>
+      <li><a href="instructors.html">Instructors</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="app/login.html" class="btn btn-secondary btn-sm">Log in</a>
+      <a href="pricing.html" class="btn btn-primary btn-sm">Get started free</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Get in touch</h1>
+    <p>A real person reads every message. We typically respond within one business day.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-layout">
+      <div>
+        <h3 style="margin-bottom:var(--space-md)">Send us a message</h3>
+        <!-- Static form placeholder — wire to Supabase or Formspree later -->
+        <form id="contact-form" onsubmit="handleContact(event)">
+          <div class="form-group">
+            <label class="form-label" for="name">Your name</label>
+            <input type="text" id="name" class="form-input" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email address</label>
+            <input type="email" id="email" class="form-input" placeholder="jane@example.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="topic">Topic</label>
+            <select id="topic" class="form-input filter-select" style="width:100%">
+              <option value="">Select a topic</option>
+              <option value="instructor">Instructor question</option>
+              <option value="learner">Learner question</option>
+              <option value="billing">Billing / account</option>
+              <option value="feature">Feature request</option>
+              <option value="bug">Report a bug</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea id="message" class="form-input" placeholder="Tell us what's on your mind…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center">Send message</button>
+        </form>
+        <div id="contact-success" style="display:none;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:var(--radius-md);padding:var(--space-md);margin-top:var(--space-md);text-align:center">
+          <div style="font-size:2rem;margin-bottom:0.5rem">✉️</div>
+          <h4 style="color:var(--blue);margin-bottom:0.3rem">Message received!</h4>
+          <p style="font-size:0.9rem">We'll get back to you within one business day.</p>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:var(--space-md)">Other ways to reach us</h3>
+        <div class="card" style="margin-bottom:var(--space-sm)">
+          <div class="card-icon">📧</div>
+          <h4>Email</h4>
+          <p>For anything that doesn't fit the form: <a href="mailto:hello@learnatyourownpace.com" style="color:var(--blue);font-weight:600">hello@learnatyourownpace.com</a></p>
+        </div>
+        <div class="card" style="margin-bottom:var(--space-sm)">
+          <div class="card-icon">💡</div>
+          <h4>Feature requests</h4>
+          <p>Have an idea that would make LAYOP better? We genuinely want to hear it. Use the form and select "Feature request."</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🐛</div>
+          <h4>Report a bug</h4>
+          <p>Found something broken? Tell us exactly what happened and we'll fix it fast.</p>
+        </div>
+
+        <div style="margin-top:var(--space-lg);padding:var(--space-md);background:var(--gray-50);border-radius:var(--radius-md);border:1px solid var(--gray-200)">
+          <h4 style="margin-bottom:0.4rem;color:var(--text)">Quick answers</h4>
+          <p style="font-size:0.88rem">Check our <a href="index.html#faq" style="color:var(--blue);font-weight:600">FAQ section</a> on the homepage — most common questions are answered there.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><svg width="28" height="28" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#2547a8"/><circle cx="18" cy="13" r="4.5" fill="#D4A017"/><path d="M18 16.5 Q12 20 8 26 Q13 23 18 25 Q23 23 28 26 Q24 20 18 16.5Z" fill="white" opacity="0.9"/></svg>Learn<span>AtYourOwnPace</span></a><p>Premium LMS tools for instructors who refuse to overpay.</p></div>
+      <div class="footer-col"><h5>Platform</h5><a href="courses.html">Browse Courses</a><a href="instructors.html">Instructors</a><a href="niches.html">Categories</a><a href="pricing.html">Pricing</a></div>
+      <div class="footer-col"><h5>Instructors</h5><a href="pricing.html">Start free</a><a href="about.html">Our Story</a></div>
+      <div class="footer-col"><h5>Company</h5><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 LearnAtYourOwnPace.com</span><span>Made for instructors who teach first, tech second.</span></div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script>
+function handleContact(e) {
+  e.preventDefault();
+  // TODO: wire to Supabase edge function or Formspree
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('contact-success').style.display = 'block';
+}
+</script>
+</body>
+</html>
