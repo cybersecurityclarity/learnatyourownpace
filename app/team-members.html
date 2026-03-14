@@ -1,0 +1,450 @@
+<!-- FILE: app/team-members.html -->
+<!-- Place in your /app/ folder. Instructors use this to manage their team. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Members — LearnAtYourOwnPace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    /* ── PASTE YOUR app/assets/css/app.css CONTENTS HERE ── */
+    :root {
+      --blue:#1E3A8A;--blue-dark:#162d6e;--blue-light:#2547a8;--blue-50:#eff4ff;--blue-100:#dbe6fe;
+      --gold:#D4A017;--gold-light:#f0bb30;--gold-50:#fdf7e3;--white:#FFFFFF;
+      --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-600:#475569;
+      --text:#1a2540;--text-light:#4a5568;
+      --sidebar-w:240px;--header-h:60px;
+      --font-display:'DM Serif Display',Georgia,serif;
+      --font-body:'DM Sans','Segoe UI',sans-serif;
+      --radius-sm:6px;--radius-md:12px;--radius-lg:20px;--radius-full:9999px;
+      --shadow-sm:0 1px 3px rgba(30,58,138,0.06);--shadow-md:0 4px 16px rgba(30,58,138,0.10);--shadow-lg:0 12px 40px rgba(30,58,138,0.14);
+      --transition:0.2s ease;
+      --admin-red:#dc2626;--admin-red-50:#fef2f2;--admin-green:#16a34a;--admin-green-50:#f0fdf4;--admin-orange:#ea580c;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);font-size:15px;line-height:1.6;color:var(--text);background:var(--gray-50);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer;border:none;background:none}
+    input,textarea,select{font-family:inherit}
+    ul{list-style:none}
+
+    .app-shell{display:flex;min-height:100vh}
+    .app-sidebar{width:var(--sidebar-w);background:var(--blue-dark);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;display:flex;flex-direction:column;transition:transform var(--transition)}
+    .app-main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column}
+    .app-topbar{height:var(--header-h);background:var(--white);border-bottom:1px solid var(--gray-200);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:50;box-shadow:var(--shadow-sm)}
+    .app-content{padding:1.75rem;flex:1}
+    .sidebar-logo{display:flex;align-items:center;gap:0.6rem;padding:1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,0.08);font-weight:700;font-size:0.9rem;color:var(--white)}
+    .sidebar-logo span{color:var(--gold)}
+    .sidebar-nav{padding:1rem 0;flex:1}
+    .sidebar-section-label{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);padding:1rem 1rem 0.4rem}
+    .sidebar-link{display:flex;align-items:center;gap:0.65rem;padding:0.65rem 1rem;font-size:0.88rem;font-weight:500;color:rgba(255,255,255,0.6);transition:all var(--transition);cursor:pointer}
+    .sidebar-link:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.9)}
+    .sidebar-link.active{background:rgba(255,255,255,0.1);color:var(--white);border-left:3px solid var(--gold)}
+    .sidebar-link .icon{font-size:1.1rem;min-width:1.4rem}
+    .sidebar-footer{padding:1rem;border-top:1px solid rgba(255,255,255,0.08)}
+    .sidebar-user{display:flex;align-items:center;gap:0.6rem;padding:0.5rem;border-radius:var(--radius-sm)}
+    .sidebar-avatar{width:32px;height:32px;border-radius:50%;background:var(--blue-light);color:var(--white);font-size:0.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .sidebar-user-name{font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.85)}
+    .sidebar-user-role{font-size:0.7rem;color:rgba(255,255,255,0.4)}
+    .topbar-title{font-weight:700;font-size:1rem;color:var(--text)}
+    .topbar-right{display:flex;align-items:center;gap:0.75rem}
+    .topbar-btn{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;border:none}
+
+    .btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.25rem;border-radius:var(--radius-sm);font-size:0.88rem;font-weight:600;transition:all var(--transition);white-space:nowrap;cursor:pointer}
+    .btn-primary{background:var(--gold);color:var(--blue-dark);border:2px solid var(--gold)}
+    .btn-primary:hover{background:var(--gold-light);border-color:var(--gold-light);transform:translateY(-1px)}
+    .btn-secondary{background:transparent;color:var(--blue);border:2px solid var(--blue)}
+    .btn-secondary:hover{background:var(--blue-50)}
+    .btn-danger{background:transparent;color:var(--admin-red);border:2px solid var(--admin-red)}
+    .btn-danger:hover{background:var(--admin-red-50)}
+    .btn-ghost{background:transparent;color:var(--text-light);border:2px solid var(--gray-200)}
+    .btn-ghost:hover{background:var(--gray-100)}
+    .btn-sm{padding:0.4rem 0.85rem;font-size:0.82rem}
+    .btn-xs{padding:0.2rem 0.55rem;font-size:0.72rem}
+
+    .card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:1.25rem;box-shadow:var(--shadow-sm)}
+    .badge{display:inline-flex;align-items:center;padding:0.2rem 0.55rem;border-radius:var(--radius-full);font-size:0.7rem;font-weight:700;letter-spacing:0.04em}
+    .badge-blue{background:var(--blue-50);color:var(--blue)}
+    .badge-green{background:#f0fdf4;color:#15803d}
+    .badge-gray{background:var(--gray-100);color:var(--gray-600)}
+    .badge-red{background:#fef2f2;color:#dc2626}
+    .badge-purple{background:#f5f3ff;color:#7c3aed}
+    .badge-orange{background:#fff7ed;color:#ea580c}
+
+    .form-group{margin-bottom:1rem}
+    .form-label{display:block;font-size:0.82rem;font-weight:600;color:var(--text);margin-bottom:0.35rem}
+    .form-input{width:100%;padding:0.65rem 0.9rem;border:2px solid var(--gray-200);border-radius:var(--radius-sm);font-size:0.9rem;outline:none;background:var(--white);color:var(--text);transition:border-color var(--transition)}
+    .form-input:focus{border-color:var(--blue)}
+    .form-hint{font-size:0.76rem;color:var(--gray-400);margin-top:0.25rem}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+    .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.75rem}
+    .page-header h1{font-family:var(--font-display);font-size:1.6rem;color:var(--text)}
+    .section-title{font-family:var(--font-display);font-size:1.2rem;color:var(--text);margin-bottom:1rem}
+    .divider{height:1px;background:var(--gray-200);margin:1.25rem 0}
+
+    /* Team member cards */
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem}
+    .team-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;transition:all var(--transition);box-shadow:var(--shadow-sm)}
+    .team-card:hover{box-shadow:var(--shadow-md);border-color:var(--blue-100)}
+    .team-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;color:white;flex-shrink:0}
+    .team-info{flex:1;min-width:0}
+    .team-name{font-weight:700;font-size:0.95rem;margin-bottom:0.15rem}
+    .team-email{font-size:0.78rem;color:var(--gray-400);margin-bottom:0.5rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .team-actions{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.75rem}
+
+    /* Permissions grid */
+    .permissions-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem}
+    .perm-item{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border:1px solid var(--gray-100);background:var(--gray-50)}
+    .perm-item input[type="checkbox"]{accent-color:var(--blue);width:14px;height:14px}
+    .perm-item.granted{background:var(--blue-50);border-color:var(--blue-100)}
+
+    /* Invite modal */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:200;align-items:center;justify-content:center}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--white);border-radius:var(--radius-lg);padding:2rem;width:100%;max-width:480px;box-shadow:var(--shadow-lg);position:relative}
+    .modal-title{font-family:var(--font-display);font-size:1.3rem;margin-bottom:0.25rem}
+    .modal-sub{font-size:0.88rem;color:var(--text-light);margin-bottom:1.5rem}
+    .modal-close{position:absolute;top:1rem;right:1rem;width:32px;height:32px;border-radius:50%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;font-size:1.1rem}
+
+    .role-card{border:2px solid var(--gray-200);border-radius:var(--radius-md);padding:1rem;cursor:pointer;transition:all 0.15s;margin-bottom:0.75rem}
+    .role-card:hover{border-color:var(--blue-100);background:var(--blue-50)}
+    .role-card.selected{border-color:var(--blue);background:var(--blue-50)}
+    .role-card-title{font-weight:700;margin-bottom:0.2rem}
+    .role-card-desc{font-size:0.82rem;color:var(--text-light)}
+    .role-card-perms{font-size:0.75rem;color:var(--gray-400);margin-top:0.4rem}
+
+    .sidebar-toggle{display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--radius-sm);background:var(--gray-100);font-size:1.1rem;border:none;cursor:pointer}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:90}
+
+    @media(max-width:900px){.app-sidebar{transform:translateX(-100%)}.app-sidebar.open{transform:translateX(0)}.app-main{margin-left:0}.sidebar-toggle{display:flex}.sidebar-overlay.open{display:block}.form-row{grid-template-columns:1fr}.permissions-grid{grid-template-columns:1fr}}
+    @media(max-width:640px){.app-content{padding:1rem}.team-grid{grid-template-columns:1fr}}
+
+    .info-box{background:var(--blue-50);border:1px solid var(--blue-100);border-radius:var(--radius-md);padding:1rem 1.25rem;font-size:0.88rem;color:var(--text-light);margin-bottom:1.5rem}
+    .info-box strong{color:var(--blue)}
+    .pending-badge{display:inline-flex;align-items:center;gap:0.3rem;background:#fff7ed;border:1px solid #fed7aa;color:var(--admin-orange);font-size:0.7rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:4px}
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="app-sidebar">
+    <a href="../index.html" class="sidebar-logo">
+      <img src="../assets/img/logo.png" alt="logo" width="30" height="30" style="border-radius:50%">
+      Learn<span>AtYourOwnPace</span>
+    </a>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Instructor</div>
+      <a href="dashboard-instructor.html" class="sidebar-link"><span class="icon">📊</span> Dashboard</a>
+      <a href="course-builder.html" class="sidebar-link"><span class="icon">➕</span> New Course</a>
+      <a href="#" class="sidebar-link"><span class="icon">📚</span> My Courses</a>
+      <a href="#" class="sidebar-link"><span class="icon">👥</span> Learners</a>
+      <a href="#" class="sidebar-link"><span class="icon">💰</span> Revenue</a>
+      <a href="#" class="sidebar-link"><span class="icon">💬</span> Comments</a>
+      <div class="sidebar-section-label">Account</div>
+      <a href="team-members.html" class="sidebar-link active"><span class="icon">🤝</span> Team Members</a>
+      <a href="../index.html" class="sidebar-link"><span class="icon">🌐</span> View public site</a>
+      <a href="#" class="sidebar-link"><span class="icon">⚙️</span> Settings</a>
+      <a href="../pricing.html" class="sidebar-link"><span class="icon">💳</span> Subscription</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">SK</div>
+        <div><div class="sidebar-user-name">Sarah Kim</div><div class="sidebar-user-role">Instructor · Starter</div></div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-overlay" id="overlay"></div>
+
+  <!-- ══ MAIN ══ -->
+  <div class="app-main">
+    <header class="app-topbar">
+      <div style="display:flex;align-items:center;gap:0.75rem">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <span class="topbar-title">Team Members</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-primary btn-sm" onclick="openModal()">+ Invite team member</button>
+      </div>
+    </header>
+
+    <main class="app-content">
+
+      <div class="page-header">
+        <div>
+          <h1>Your Team</h1>
+          <p style="font-size:0.9rem;color:var(--text-light)">Invite collaborators to help you edit courses, manage lessons, or view analytics.</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal()">+ Invite team member</button>
+      </div>
+
+      <div class="info-box">
+        <strong>How team members work:</strong> Team members you invite can access your instructor account with limited permissions based on the role you assign. They <strong>cannot</strong> change your pricing, billing, or payout settings. You can revoke access at any time.
+      </div>
+
+      <!-- ══ CURRENT TEAM ══ -->
+      <div class="section-title">Current Team Members</div>
+      <div class="team-grid" id="team-grid">
+
+        <!-- Owner (you) -->
+        <div class="team-card">
+          <div class="team-avatar" style="background:#1E3A8A">SK</div>
+          <div class="team-info">
+            <div class="team-name">Sarah Kim <span class="badge badge-blue" style="margin-left:0.3rem">You</span></div>
+            <div class="team-email">sarah@example.com</div>
+            <div style="margin-bottom:0.5rem"><span class="badge" style="background:#dbeafe;color:#1d4ed8;font-size:0.72rem">👑 Owner</span></div>
+            <div style="font-size:0.78rem;color:var(--gray-400)">Full access to all features</div>
+          </div>
+        </div>
+
+        <!-- Editor -->
+        <div class="team-card" id="member-marcos">
+          <div class="team-avatar" style="background:#7c3aed">MR</div>
+          <div class="team-info">
+            <div class="team-name">Marcos Reyes</div>
+            <div class="team-email">marcos@videoedit.co</div>
+            <div style="margin-bottom:0.5rem"><span class="badge" style="background:#fce7f3;color:#9d174d;font-size:0.72rem">✏️ Editor</span></div>
+            <div style="font-size:0.78rem;color:var(--gray-400);margin-bottom:0.75rem">Can edit lesson content &amp; video links</div>
+            <div class="permissions-grid">
+              <div class="perm-item granted"><input type="checkbox" checked disabled> Edit lessons</div>
+              <div class="perm-item granted"><input type="checkbox" checked disabled> Edit video links</div>
+              <div class="perm-item granted"><input type="checkbox" checked disabled> Upload resources</div>
+              <div class="perm-item"><input type="checkbox" disabled> View analytics</div>
+              <div class="perm-item"><input type="checkbox" disabled> Manage learners</div>
+              <div class="perm-item"><input type="checkbox" disabled> Publish courses</div>
+            </div>
+            <div class="team-actions">
+              <button class="btn btn-ghost btn-xs" onclick="editMember('Marcos Reyes')">Edit role</button>
+              <button class="btn btn-danger btn-xs" onclick="removeMember('Marcos Reyes','member-marcos')">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Viewer / Analytics -->
+        <div class="team-card" id="member-diana">
+          <div class="team-avatar" style="background:#16a34a">DL</div>
+          <div class="team-info">
+            <div class="team-name">Diana Lopez</div>
+            <div class="team-email">diana@example.com</div>
+            <div style="margin-bottom:0.5rem"><span class="badge" style="background:#f0fdf4;color:#15803d;font-size:0.72rem">👁 Analyst</span></div>
+            <div style="font-size:0.78rem;color:var(--gray-400);margin-bottom:0.75rem">Can view analytics and learner progress</div>
+            <div class="permissions-grid">
+              <div class="perm-item"><input type="checkbox" disabled> Edit lessons</div>
+              <div class="perm-item"><input type="checkbox" disabled> Edit video links</div>
+              <div class="perm-item"><input type="checkbox" disabled> Upload resources</div>
+              <div class="perm-item granted"><input type="checkbox" checked disabled> View analytics</div>
+              <div class="perm-item granted"><input type="checkbox" checked disabled> View learners</div>
+              <div class="perm-item"><input type="checkbox" disabled> Publish courses</div>
+            </div>
+            <div class="team-actions">
+              <button class="btn btn-ghost btn-xs" onclick="editMember('Diana Lopez')">Edit role</button>
+              <button class="btn btn-danger btn-xs" onclick="removeMember('Diana Lopez','member-diana')">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pending invite -->
+        <div class="team-card" id="member-pending" style="border-style:dashed;background:var(--gray-50)">
+          <div class="team-avatar" style="background:var(--gray-300)">?</div>
+          <div class="team-info">
+            <div class="team-name">alex@partner.com <span class="pending-badge">⏳ Pending</span></div>
+            <div class="team-email">Invite sent Dec 10, 2025</div>
+            <div style="margin-bottom:0.5rem"><span class="badge" style="background:#fce7f3;color:#9d174d;font-size:0.72rem">✏️ Editor</span></div>
+            <div style="font-size:0.78rem;color:var(--gray-400)">Waiting for them to accept the invitation</div>
+            <div class="team-actions">
+              <button class="btn btn-ghost btn-xs" onclick="toast('Invitation resent to alex@partner.com','#1E3A8A')">Resend invite</button>
+              <button class="btn btn-danger btn-xs" onclick="removeMember('alex@partner.com','member-pending')">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ ROLE GUIDE ══ -->
+      <div class="divider"></div>
+      <div class="section-title">Role Permissions Guide</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem">
+        <div class="card">
+          <div style="font-size:1.4rem;margin-bottom:0.4rem">✏️</div>
+          <div style="font-weight:700;margin-bottom:0.25rem;color:var(--blue)">Editor</div>
+          <div style="font-size:0.82rem;color:var(--text-light)">Best for video editors and content assistants. Can edit lesson content, update video links, and upload resource files.</div>
+          <div style="font-size:0.75rem;color:var(--gray-400);margin-top:0.5rem">✓ Edit lessons &nbsp;✓ Video links &nbsp;✓ Resources<br>✗ Analytics &nbsp;✗ Publish &nbsp;✗ Billing</div>
+        </div>
+        <div class="card">
+          <div style="font-size:1.4rem;margin-bottom:0.4rem">👁</div>
+          <div style="font-weight:700;margin-bottom:0.25rem;color:var(--admin-green)">Analyst</div>
+          <div style="font-size:0.82rem;color:var(--text-light)">Best for business partners or VAs tracking performance. Can view dashboards, learner progress, and quiz results.</div>
+          <div style="font-size:0.75rem;color:var(--gray-400);margin-top:0.5rem">✓ Analytics &nbsp;✓ Learner data<br>✗ Edit content &nbsp;✗ Publish &nbsp;✗ Billing</div>
+        </div>
+        <div class="card">
+          <div style="font-size:1.4rem;margin-bottom:0.4rem">🛠️</div>
+          <div style="font-weight:700;margin-bottom:0.25rem;color:#7c3aed">Co-Instructor</div>
+          <div style="font-size:0.82rem;color:var(--text-light)">Best for a trusted partner or co-teacher. Can edit content, view analytics, manage learners, and publish courses.</div>
+          <div style="font-size:0.75rem;color:var(--gray-400);margin-top:0.5rem">✓ Everything except billing &amp; payouts<br>✗ Billing &nbsp;✗ Remove owner</div>
+        </div>
+        <div class="card" style="border-color:var(--gold);background:var(--gold-50)">
+          <div style="font-size:1.4rem;margin-bottom:0.4rem">👑</div>
+          <div style="font-weight:700;margin-bottom:0.25rem;color:#a07a10">Owner (You)</div>
+          <div style="font-size:0.82rem;color:var(--text-light)">Full control over everything. Only the owner can change billing, payout settings, or remove team members.</div>
+          <div style="font-size:0.75rem;color:#a07a10;margin-top:0.5rem">✓ All permissions &nbsp;✓ Billing &nbsp;✓ Team management</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ══ INVITE MODAL ══ -->
+<div class="modal-overlay" id="invite-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">Invite a team member</div>
+    <div class="modal-sub">They'll receive an email with a link to join your team on LAYOP.</div>
+
+    <div class="form-group">
+      <label class="form-label">Email address *</label>
+      <input type="email" class="form-input" id="invite-email" placeholder="colleague@example.com" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Role *</label>
+      <div class="role-card selected" id="role-editor" onclick="selectRole('editor')">
+        <div class="role-card-title">✏️ Editor</div>
+        <div class="role-card-desc">Edit lesson content and video links</div>
+        <div class="role-card-perms">Can: edit lessons, video links, resources &nbsp;|&nbsp; Cannot: analytics, publish, billing</div>
+      </div>
+      <div class="role-card" id="role-analyst" onclick="selectRole('analyst')">
+        <div class="role-card-title">👁 Analyst</div>
+        <div class="role-card-desc">View dashboards and learner progress</div>
+        <div class="role-card-perms">Can: analytics, learner data &nbsp;|&nbsp; Cannot: edit content, publish, billing</div>
+      </div>
+      <div class="role-card" id="role-coinstructor" onclick="selectRole('coinstructor')">
+        <div class="role-card-title">🛠️ Co-Instructor</div>
+        <div class="role-card-desc">Full editing and publishing access</div>
+        <div class="role-card-perms">Can: everything except billing &amp; payouts</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Personal note (optional)</label>
+      <input type="text" class="form-input" id="invite-note" placeholder="e.g. Hey! Inviting you to help edit my course videos." />
+      <div class="form-hint">Added to the invitation email.</div>
+    </div>
+
+    <div style="display:flex;gap:0.75rem;justify-content:flex-end">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="sendInvite()">Send invitation</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOAST ══ -->
+<div id="toast" style="display:none;position:fixed;bottom:1.5rem;right:1.5rem;padding:0.75rem 1.25rem;border-radius:8px;font-size:0.9rem;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2);color:white;max-width:320px"></div>
+
+<script>
+let selectedRole = 'editor';
+
+function openModal() {
+  document.getElementById('invite-modal').classList.add('open');
+  document.getElementById('invite-email').focus();
+}
+function closeModal() {
+  document.getElementById('invite-modal').classList.remove('open');
+}
+
+function selectRole(role) {
+  selectedRole = role;
+  ['editor','analyst','coinstructor'].forEach(r => {
+    document.getElementById('role-' + r).classList.toggle('selected', r === role);
+  });
+}
+
+function sendInvite() {
+  const email = document.getElementById('invite-email').value.trim();
+  if (!email || !email.includes('@')) { toast('Please enter a valid email address', '#dc2626'); return; }
+  // TODO: Supabase
+  // await supabase.from('team_invites').insert({
+  //   instructor_id: currentUser.id,
+  //   email,
+  //   role: selectedRole,
+  //   status: 'pending',
+  //   created_at: new Date().toISOString()
+  // })
+  closeModal();
+  toast(`Invitation sent to ${email} as ${selectedRole}!`, '#16a34a');
+  // Add pending card to UI
+  addPendingCard(email, selectedRole);
+  document.getElementById('invite-email').value = '';
+  document.getElementById('invite-note').value = '';
+}
+
+function addPendingCard(email, role) {
+  const grid = document.getElementById('team-grid');
+  const id = 'member-' + Date.now();
+  const roleLabel = { editor: '✏️ Editor', analyst: '👁 Analyst', coinstructor: '🛠️ Co-Instructor' }[role];
+  const card = document.createElement('div');
+  card.className = 'team-card';
+  card.id = id;
+  card.style.borderStyle = 'dashed';
+  card.style.background = 'var(--gray-50)';
+  card.innerHTML = `
+    <div class="team-avatar" style="background:var(--gray-300)">?</div>
+    <div class="team-info">
+      <div class="team-name">${email} <span class="pending-badge">⏳ Pending</span></div>
+      <div class="team-email">Invite sent just now</div>
+      <div style="margin-bottom:0.5rem"><span class="badge" style="background:#fce7f3;color:#9d174d;font-size:0.72rem">${roleLabel}</span></div>
+      <div class="team-actions">
+        <button class="btn btn-ghost btn-xs" onclick="toast('Invitation resent','#1E3A8A')">Resend invite</button>
+        <button class="btn btn-danger btn-xs" onclick="removeMember('${email}','${id}')">Cancel</button>
+      </div>
+    </div>`;
+  grid.appendChild(card);
+}
+
+function removeMember(name, cardId) {
+  if (!confirm(`Remove ${name} from your team?\n\nThey will immediately lose access to your instructor account.`)) return;
+  // TODO: Supabase
+  // await supabase.from('team_members').delete().eq('email', email).eq('instructor_id', currentUser.id)
+  const card = document.getElementById(cardId);
+  if (card) {
+    card.style.transition = 'opacity 0.3s, transform 0.3s';
+    card.style.opacity = '0';
+    card.style.transform = 'scale(0.95)';
+    setTimeout(() => card.remove(), 300);
+  }
+  toast(`${name} has been removed from your team.`, '#dc2626');
+}
+
+function editMember(name) {
+  toast(`Edit role for ${name} — coming soon! For now, remove and re-invite with the new role.`, '#1E3A8A');
+}
+
+function toggleSidebar() {
+  document.querySelector('.app-sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+document.getElementById('overlay').addEventListener('click', () => {
+  document.querySelector('.app-sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+});
+
+// Close modal on overlay click
+document.getElementById('invite-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+function toast(msg, color) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = color;
+  t.style.display = 'block';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.style.display = 'none', 3500);
+}
+</script>
+</body>
+</html>

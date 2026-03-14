@@ -1,0 +1,777 @@
+<!-- FILE: app/admin-dashboard.html -->
+<!-- Place in your /app/ folder alongside the other app pages -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Admin — LearnAtYourOwnPace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    /* ── PASTE YOUR app/assets/css/app.css CONTENTS HERE ── */
+    /* Then add the admin styles below */
+
+    :root {
+      --blue:#1E3A8A;--blue-dark:#162d6e;--blue-light:#2547a8;--blue-50:#eff4ff;--blue-100:#dbe6fe;
+      --gold:#D4A017;--gold-light:#f0bb30;--gold-50:#fdf7e3;--white:#FFFFFF;
+      --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-600:#475569;--gray-800:#1e293b;
+      --text:#1a2540;--text-light:#4a5568;
+      --sidebar-w:240px;--header-h:60px;
+      --font-display:'DM Serif Display',Georgia,serif;
+      --font-body:'DM Sans','Segoe UI',sans-serif;
+      --radius-sm:6px;--radius-md:12px;--radius-lg:20px;--radius-full:9999px;
+      --shadow-sm:0 1px 3px rgba(30,58,138,0.06);--shadow-md:0 4px 16px rgba(30,58,138,0.10);--shadow-lg:0 12px 40px rgba(30,58,138,0.14);
+      --transition:0.2s ease;
+      --admin-red:#dc2626;--admin-red-50:#fef2f2;
+      --admin-green:#16a34a;--admin-green-50:#f0fdf4;
+      --admin-orange:#ea580c;--admin-orange-50:#fff7ed;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);font-size:15px;line-height:1.6;color:var(--text);background:var(--gray-50);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer;border:none;background:none}
+    input,textarea,select{font-family:inherit}
+    ul{list-style:none}
+
+    /* Shell */
+    .app-shell{display:flex;min-height:100vh}
+    .app-sidebar{width:var(--sidebar-w);background:#0f1f4a;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;display:flex;flex-direction:column;transition:transform var(--transition)}
+    .app-main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column}
+    .app-topbar{height:var(--header-h);background:var(--white);border-bottom:1px solid var(--gray-200);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:50;box-shadow:var(--shadow-sm)}
+    .app-content{padding:1.75rem;flex:1}
+
+    /* Sidebar */
+    .sidebar-logo{display:flex;align-items:center;gap:0.6rem;padding:1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06);font-weight:700;font-size:0.9rem;color:var(--white)}
+    .sidebar-logo span{color:var(--gold)}
+    .sidebar-nav{padding:1rem 0;flex:1}
+    .sidebar-section-label{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:1rem 1rem 0.4rem}
+    .sidebar-link{display:flex;align-items:center;gap:0.65rem;padding:0.65rem 1rem;font-size:0.88rem;font-weight:500;color:rgba(255,255,255,0.6);transition:all var(--transition);cursor:pointer}
+    .sidebar-link:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.9)}
+    .sidebar-link.active{background:rgba(255,255,255,0.1);color:var(--white);border-left:3px solid var(--gold)}
+    .sidebar-link .icon{font-size:1.1rem;min-width:1.4rem}
+    .sidebar-footer{padding:1rem;border-top:1px solid rgba(255,255,255,0.08)}
+    .sidebar-user{display:flex;align-items:center;gap:0.6rem;padding:0.5rem;border-radius:var(--radius-sm);cursor:pointer}
+    .sidebar-user:hover{background:rgba(255,255,255,0.06)}
+    .sidebar-avatar{width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--blue-dark);font-size:0.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .sidebar-user-name{font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.85)}
+    .sidebar-user-role{font-size:0.7rem;color:rgba(255,255,255,0.4)}
+
+    /* Topbar */
+    .topbar-title{font-weight:700;font-size:1rem;color:var(--text)}
+    .topbar-right{display:flex;align-items:center;gap:0.75rem}
+    .topbar-btn{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:background var(--transition);border:none}
+    .topbar-btn:hover{background:var(--gray-200)}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.25rem;border-radius:var(--radius-sm);font-size:0.88rem;font-weight:600;transition:all var(--transition);white-space:nowrap;cursor:pointer}
+    .btn-primary{background:var(--gold);color:var(--blue-dark);border:2px solid var(--gold)}
+    .btn-primary:hover{background:var(--gold-light);border-color:var(--gold-light);transform:translateY(-1px)}
+    .btn-secondary{background:transparent;color:var(--blue);border:2px solid var(--blue)}
+    .btn-secondary:hover{background:var(--blue-50)}
+    .btn-danger{background:transparent;color:var(--admin-red);border:2px solid var(--admin-red)}
+    .btn-danger:hover{background:var(--admin-red-50)}
+    .btn-ghost{background:transparent;color:var(--text-light);border:2px solid var(--gray-200)}
+    .btn-ghost:hover{background:var(--gray-100)}
+    .btn-sm{padding:0.35rem 0.8rem;font-size:0.78rem}
+    .btn-xs{padding:0.2rem 0.55rem;font-size:0.72rem}
+
+    /* Cards */
+    .card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:1.25rem;box-shadow:var(--shadow-sm)}
+
+    /* Table */
+    .data-table{width:100%;border-collapse:collapse}
+    .data-table th{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray-400);padding:0.6rem 0.75rem;border-bottom:2px solid var(--gray-100);text-align:left;white-space:nowrap}
+    .data-table td{padding:0.85rem 0.75rem;border-bottom:1px solid var(--gray-100);font-size:0.85rem;color:var(--text);vertical-align:middle}
+    .data-table tr:last-child td{border-bottom:none}
+    .data-table tr:hover td{background:var(--gray-50)}
+    .data-table tbody tr.disabled-row td{opacity:0.5;background:#fef2f2}
+
+    /* Form inputs */
+    .form-input{width:100%;padding:0.6rem 0.9rem;border:2px solid var(--gray-200);border-radius:var(--radius-sm);font-size:0.88rem;outline:none;background:var(--white);color:var(--text);transition:border-color var(--transition)}
+    .form-input:focus{border-color:var(--blue)}
+    .search-input{padding:0.6rem 1rem 0.6rem 2.2rem;border:2px solid var(--gray-200);border-radius:var(--radius-sm);font-size:0.88rem;outline:none;background:var(--white);color:var(--text);transition:border-color var(--transition);width:260px}
+    .search-input:focus{border-color:var(--blue)}
+    .search-wrap{position:relative}
+    .search-wrap::before{content:'🔍';position:absolute;left:0.7rem;top:50%;transform:translateY(-50%);font-size:0.85rem;pointer-events:none}
+
+    /* Admin specifics */
+    .admin-badge{display:inline-flex;align-items:center;gap:0.3rem;background:rgba(212,160,23,0.2);border:1px solid rgba(212,160,23,0.4);color:#f0bb30;font-size:0.62rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:0.15rem 0.5rem;border-radius:4px}
+    .big-stat{text-align:center;padding:1.25rem 0.75rem}
+    .big-stat-num{font-family:var(--font-display);font-size:2.4rem;color:var(--blue);line-height:1}
+    .big-stat-label{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray-400);margin-top:0.2rem}
+    .big-stat-delta{font-size:0.75rem;margin-top:0.15rem}
+    .big-stat-delta.up{color:var(--admin-green)}
+    .big-stat-delta.warn{color:var(--admin-orange)}
+    .toggle-switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}
+    .toggle-switch input{opacity:0;width:0;height:0}
+    .toggle-slider{position:absolute;cursor:pointer;inset:0;background:var(--gray-300);border-radius:24px;transition:background 0.2s}
+    .toggle-slider:before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:white;border-radius:50%;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+    .toggle-switch input:checked + .toggle-slider{background:var(--admin-green)}
+    .toggle-switch input:checked + .toggle-slider:before{transform:translateX(20px)}
+    .toggle-switch.danger input:checked + .toggle-slider{background:var(--admin-red)}
+    .status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+    .status-dot.active{background:var(--admin-green)}
+    .status-dot.inactive{background:var(--admin-red)}
+    .status-dot.pending{background:var(--admin-orange)}
+    .pill-tab{padding:0.45rem 1rem;border-radius:var(--radius-full);font-size:0.82rem;font-weight:600;cursor:pointer;border:2px solid var(--gray-200);background:transparent;color:var(--text-light);transition:all 0.15s}
+    .pill-tab.active,.pill-tab:hover{background:var(--blue);color:var(--white);border-color:var(--blue)}
+    .pill-tab.red.active{background:var(--admin-red);border-color:var(--admin-red);color:white}
+    .alert-bar{padding:0.65rem 1rem;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:500;display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem}
+    .alert-bar.warn{background:var(--admin-orange-50,#fff7ed);border:1px solid #fed7aa;color:var(--admin-orange)}
+    .alert-bar.danger{background:var(--admin-red-50);border:1px solid #fecaca;color:var(--admin-red)}
+    .badge{display:inline-flex;align-items:center;padding:0.2rem 0.55rem;border-radius:var(--radius-full);font-size:0.7rem;font-weight:700;letter-spacing:0.04em}
+    .badge-blue{background:var(--blue-50);color:var(--blue)}
+    .badge-green{background:#f0fdf4;color:#15803d}
+    .badge-gray{background:var(--gray-100);color:var(--gray-600)}
+    .badge-red{background:#fef2f2;color:#dc2626}
+    .badge-orange{background:#fff7ed;color:#ea580c}
+    .badge-gold{background:var(--gold-50,#fdf7e3);color:#a07a10}
+    .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.75rem}
+    .page-header h1{font-family:var(--font-display);font-size:1.6rem;color:var(--text)}
+    .section-title{font-family:var(--font-display);font-size:1.2rem;color:var(--text);margin-bottom:1rem}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem}
+    .progress-bar{height:6px;background:var(--gray-200);border-radius:3px;overflow:hidden}
+    .progress-fill{height:100%;background:var(--blue);border-radius:3px}
+    .divider{height:1px;background:var(--gray-200);margin:1.25rem 0}
+    .sidebar-toggle{display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--radius-sm);background:var(--gray-100);font-size:1.1rem;border:none;cursor:pointer}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:90}
+    .flex{display:flex}.items-center{align-items:center}.gap-sm{gap:0.5rem}.gap-md{gap:1rem}.mt-md{margin-top:1rem}.mb-md{margin-bottom:1rem}.text-sm{font-size:0.82rem}.text-muted{color:var(--gray-400)}.font-bold{font-weight:700}
+    .two-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+    .three-col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    @media(max-width:900px){.app-sidebar{transform:translateX(-100%)}.app-sidebar.open{transform:translateX(0)}.app-main{margin-left:0}.sidebar-toggle{display:flex}.sidebar-overlay.open{display:block}.two-col-grid,.three-col-grid{grid-template-columns:1fr}}
+    @media(max-width:640px){.app-content{padding:1rem}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+
+    /* Tab panels */
+    .tab-panel{display:none}.tab-panel.active{display:block}
+    .tabs-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="app-sidebar">
+    <a href="../index.html" class="sidebar-logo">
+      <!-- Replace src with your logo data URI or path -->
+      <img src="../assets/img/logo.png" alt="logo" width="30" height="30" style="border-radius:50%">
+      Learn<span>AtYourOwnPace</span>
+      <span class="admin-badge" style="margin-left:auto">ADMIN</span>
+    </a>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Overview</div>
+      <a href="admin-dashboard.html" class="sidebar-link active"><span class="icon">📊</span> Dashboard</a>
+      <a href="#" class="sidebar-link" onclick="showTab('instructors-tab',this)"><span class="icon">👩‍🏫</span> Instructors</a>
+      <a href="#" class="sidebar-link" onclick="showTab('courses-tab',this)"><span class="icon">📚</span> Courses</a>
+      <a href="#" class="sidebar-link" onclick="showTab('learners-tab',this)"><span class="icon">👤</span> Learners</a>
+      <a href="#" class="sidebar-link" onclick="showTab('revenue-tab',this)"><span class="icon">💰</span> Revenue</a>
+      <div class="sidebar-section-label">Controls</div>
+      <a href="#" class="sidebar-link" onclick="showTab('access-tab',this)"><span class="icon">🔐</span> Access Control</a>
+      <a href="#" class="sidebar-link" onclick="showTab('flags-tab',this)"><span class="icon">🚩</span> Flags &amp; Reports</a>
+      <div class="sidebar-section-label">Platform</div>
+      <a href="#" class="sidebar-link"><span class="icon">⚙️</span> Platform Settings</a>
+      <a href="#" class="sidebar-link"><span class="icon">📣</span> Announcements</a>
+      <a href="../index.html" class="sidebar-link"><span class="icon">🌐</span> View public site</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">YO</div>
+        <div>
+          <div class="sidebar-user-name">You (Owner)</div>
+          <div class="sidebar-user-role">Super Admin</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-overlay" id="overlay"></div>
+
+  <!-- ══ MAIN ══ -->
+  <div class="app-main">
+    <header class="app-topbar">
+      <div style="display:flex;align-items:center;gap:0.75rem">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <span class="topbar-title">⚡ Super Admin Control Panel</span>
+      </div>
+      <div class="topbar-right">
+        <button class="topbar-btn" title="Notifications" onclick="alert('3 new flags to review')">🔔 <span style="font-size:0.65rem;color:var(--admin-red);font-weight:700">3</span></button>
+        <a href="login.html" class="btn btn-ghost btn-sm">Log out</a>
+      </div>
+    </header>
+
+    <main class="app-content">
+
+      <!-- ══ ALERT BARS ══ -->
+      <div class="alert-bar warn">⚠️ <strong>2 instructors</strong> have overdue payments — accounts set to read-only pending resolution.</div>
+      <div class="alert-bar danger">🚩 <strong>1 course</strong> has been reported by a learner. <a href="#" style="color:var(--admin-red);font-weight:700;text-decoration:underline" onclick="showTab('flags-tab')">Review now →</a></div>
+
+      <!-- ══ OVERVIEW STATS ══ -->
+      <div class="tabs-row" id="main-tabs">
+        <button class="pill-tab active" onclick="showTab('overview-tab',this,'main-tabs')">📊 Overview</button>
+        <button class="pill-tab" onclick="showTab('instructors-tab',this,'main-tabs')">👩‍🏫 Instructors</button>
+        <button class="pill-tab" onclick="showTab('courses-tab',this,'main-tabs')">📚 Courses</button>
+        <button class="pill-tab" onclick="showTab('learners-tab',this,'main-tabs')">👤 Learners</button>
+        <button class="pill-tab" onclick="showTab('revenue-tab',this,'main-tabs')">💰 Revenue</button>
+        <button class="pill-tab" onclick="showTab('access-tab',this,'main-tabs')">🔐 Access Control</button>
+        <button class="pill-tab" onclick="showTab('flags-tab',this,'main-tabs')">🚩 Flags</button>
+      </div>
+
+      <!-- ══════════ TAB: OVERVIEW ══════════ -->
+      <div class="tab-panel active" id="overview-tab">
+        <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
+          <div class="card big-stat"><div class="big-stat-num">47</div><div class="big-stat-label">Instructors</div><div class="big-stat-delta up">↑ +8 this month</div></div>
+          <div class="card big-stat"><div class="big-stat-num">189</div><div class="big-stat-label">Courses</div><div class="big-stat-delta up">↑ +22 this month</div></div>
+          <div class="card big-stat"><div class="big-stat-num">2,841</div><div class="big-stat-label">Learners</div><div class="big-stat-delta up">↑ +314 this month</div></div>
+          <div class="card big-stat"><div class="big-stat-num">$940</div><div class="big-stat-label">MRR</div><div class="big-stat-delta up">↑ +$160 vs last mo</div></div>
+          <div class="card big-stat"><div class="big-stat-num">3</div><div class="big-stat-label">Disabled Users</div><div class="big-stat-delta warn">⚠ needs review</div></div>
+          <div class="card big-stat"><div class="big-stat-num">4</div><div class="big-stat-label">Hidden Courses</div><div class="big-stat-delta warn">⚠ non-payment</div></div>
+        </div>
+
+        <div class="two-col-grid">
+          <!-- Recent signups -->
+          <div class="card">
+            <div class="section-title">Recent Instructor Signups</div>
+            <table class="data-table">
+              <thead><tr><th>Name</th><th>Plan</th><th>Joined</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Jenna Park</strong><br><span class="text-muted text-sm">jenna@example.com</span></td><td><span class="badge badge-blue">Starter</span></td><td>Today</td><td><span class="status-dot active"></span> Active</td></tr>
+                <tr><td><strong>Luis Mendez</strong><br><span class="text-muted text-sm">luis@trainpro.io</span></td><td><span class="badge badge-blue">Starter</span></td><td>Yesterday</td><td><span class="status-dot active"></span> Active</td></tr>
+                <tr><td><strong>Dana Wu</strong><br><span class="text-muted text-sm">dana@example.com</span></td><td><span class="badge badge-gray">Free</span></td><td>2 days ago</td><td><span class="status-dot active"></span> Active</td></tr>
+                <tr><td><strong>Rob Ellis</strong><br><span class="text-muted text-sm">rob@example.com</span></td><td><span class="badge badge-gray">Free</span></td><td>3 days ago</td><td><span class="status-dot pending"></span> Unverified</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Top courses -->
+          <div class="card">
+            <div class="section-title">Top Performing Courses</div>
+            <table class="data-table">
+              <thead><tr><th>Course</th><th>Instructor</th><th>Learners</th><th>Completion</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Email Marketing Mastery</strong></td><td>S. Kim</td><td>212</td><td><div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:68%"></div></div></td></tr>
+                <tr><td><strong>First-Time Manager</strong></td><td>P. Nair</td><td>198</td><td><div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:74%"></div></div></td></tr>
+                <tr><td><strong>Consultative Selling</strong></td><td>J. Lee</td><td>176</td><td><div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:61%"></div></div></td></tr>
+                <tr><td><strong>AI Tools for Work</strong></td><td>A. Vega</td><td>163</td><td><div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:55%"></div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ TAB: INSTRUCTORS ══════════ -->
+      <div class="tab-panel" id="instructors-tab">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
+          <div class="section-title" style="margin-bottom:0">All Instructors <span class="badge badge-blue" style="vertical-align:middle">47</span></div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            <div class="search-wrap"><input class="search-input" placeholder="Search instructors…" oninput="filterTable(this,'instructors-table')"></div>
+            <select class="form-input" style="width:auto;padding:0.6rem 0.8rem" onchange="filterTableBySelect(this,'instructors-table',3)">
+              <option value="">All plans</option>
+              <option>Free</option>
+              <option>Starter</option>
+            </select>
+            <select class="form-input" style="width:auto;padding:0.6rem 0.8rem" onchange="filterTableBySelect(this,'instructors-table',5)">
+              <option value="">All statuses</option>
+              <option>Active</option>
+              <option>Disabled</option>
+              <option>Overdue</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card" style="padding:0;overflow:hidden">
+          <table class="data-table" id="instructors-table">
+            <thead>
+              <tr>
+                <th>Instructor</th>
+                <th>Courses</th>
+                <th>Learners</th>
+                <th>Plan</th>
+                <th>Revenue</th>
+                <th>Status</th>
+                <th>Account Active</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Sarah Kim</strong><br><span class="text-muted text-sm">sarah@example.com</span></td>
+                <td>3</td><td>212</td>
+                <td><span class="badge badge-blue">Starter</span></td>
+                <td style="font-weight:700;color:var(--blue)">$13,781</td>
+                <td><span class="status-dot active"></span> Active</td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked onchange="handleToggle(this,'Sarah Kim','account')">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+                <td>
+                  <div style="display:flex;gap:0.4rem;flex-wrap:wrap">
+                    <button class="btn btn-ghost btn-xs" onclick="viewInstructor('Sarah Kim')">View</button>
+                    <button class="btn btn-danger btn-xs" onclick="impersonateAlert('Sarah Kim')">Impersonate</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Priya Nair</strong><br><span class="text-muted text-sm">priya@example.com</span></td>
+                <td>5</td><td>620</td>
+                <td><span class="badge badge-blue">Starter</span></td>
+                <td style="font-weight:700;color:var(--blue)">$31,000</td>
+                <td><span class="status-dot active"></span> Active</td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked onchange="handleToggle(this,'Priya Nair','account')">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+                <td><div style="display:flex;gap:0.4rem"><button class="btn btn-ghost btn-xs">View</button><button class="btn btn-danger btn-xs" onclick="impersonateAlert('Priya Nair')">Impersonate</button></div></td>
+              </tr>
+              <tr class="disabled-row">
+                <td><strong>Tom Garza</strong><br><span class="text-muted text-sm">tom@example.com</span></td>
+                <td>2</td><td>44</td>
+                <td><span class="badge badge-orange">Overdue</span></td>
+                <td style="font-weight:700;color:var(--admin-red)">Payment failed</td>
+                <td><span class="status-dot inactive"></span> Disabled</td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" onchange="handleToggle(this,'Tom Garza','account')">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+                <td><div style="display:flex;gap:0.4rem"><button class="btn btn-ghost btn-xs">View</button><button class="btn btn-primary btn-xs" onclick="alert('Sending payment reminder to Tom Garza')">Remind</button></div></td>
+              </tr>
+              <tr>
+                <td><strong>Jordan Lee</strong><br><span class="text-muted text-sm">jordan@example.com</span></td>
+                <td>4</td><td>390</td>
+                <td><span class="badge badge-blue">Starter</span></td>
+                <td style="font-weight:700;color:var(--blue)">$22,980</td>
+                <td><span class="status-dot active"></span> Active</td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked onchange="handleToggle(this,'Jordan Lee','account')">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+                <td><div style="display:flex;gap:0.4rem"><button class="btn btn-ghost btn-xs">View</button><button class="btn btn-danger btn-xs" onclick="impersonateAlert('Jordan Lee')">Impersonate</button></div></td>
+              </tr>
+              <tr>
+                <td><strong>Dana Wu</strong><br><span class="text-muted text-sm">dana@example.com</span></td>
+                <td>1</td><td>0</td>
+                <td><span class="badge badge-gray">Free</span></td>
+                <td style="color:var(--gray-400)">—</td>
+                <td><span class="status-dot active"></span> Active</td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked onchange="handleToggle(this,'Dana Wu','account')">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+                <td><div style="display:flex;gap:0.4rem"><button class="btn btn-ghost btn-xs">View</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══════════ TAB: COURSES ══════════ -->
+      <div class="tab-panel" id="courses-tab">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
+          <div class="section-title" style="margin-bottom:0">All Courses <span class="badge badge-blue" style="vertical-align:middle">189</span></div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            <div class="search-wrap"><input class="search-input" placeholder="Search courses…" oninput="filterTable(this,'courses-table')"></div>
+            <select class="form-input" style="width:auto;padding:0.6rem 0.8rem">
+              <option value="">All niches</option>
+              <option>Marketing</option><option>Sales</option><option>Leadership</option><option>Operations</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card" style="padding:0;overflow:hidden">
+          <table class="data-table" id="courses-table">
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Instructor</th>
+                <th>Niche</th>
+                <th>Learners</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Visible to public</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Email Marketing Mastery</strong></td>
+                <td>Sarah Kim</td>
+                <td><span class="badge badge-blue">Marketing</span></td>
+                <td>212</td>
+                <td>$49</td>
+                <td><span class="badge badge-green">Published</span></td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked onchange="handleToggle(this,'Email Marketing Mastery','visibility')">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+                <td><button class="btn btn-ghost btn-xs" onclick="alert('Opening course preview')">Preview</button></td>
+              </tr>
+              <tr>
+                <td><strong>First-Time Manager Bootcamp</strong></td>
+                <td>Priya Nair</td>
+                <td><span class="badge badge-blue">Leadership</span></td>
+                <td>198</td>
+                <td>$79</td>
+                <td><span class="badge badge-green">Published</span></td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked onchange="handleToggle(this,'First-Time Manager Bootcamp','visibility')">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+                <td><button class="btn btn-ghost btn-xs">Preview</button></td>
+              </tr>
+              <tr class="disabled-row">
+                <td><strong>Cold Email for B2B Sales</strong></td>
+                <td>Tom Garza <span style="font-size:0.7rem;color:var(--admin-red)">(account overdue)</span></td>
+                <td><span class="badge badge-blue">Sales</span></td>
+                <td>31</td>
+                <td>$39</td>
+                <td><span class="badge badge-red">Hidden</span></td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" onchange="handleToggle(this,'Cold Email for B2B Sales','visibility')">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+                <td>
+                  <div style="display:flex;gap:0.4rem">
+                    <button class="btn btn-ghost btn-xs">Preview</button>
+                    <button class="btn btn-danger btn-xs" onclick="alert('Send payment reminder to Tom Garza')">Remind</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>AI Tools for Everyday Work</strong></td>
+                <td>Alicia Vega</td>
+                <td><span class="badge badge-blue">Technology</span></td>
+                <td>163</td>
+                <td>$45</td>
+                <td><span class="badge badge-green">Published</span></td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked onchange="handleToggle(this,'AI Tools for Everyday Work','visibility')">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+                <td><button class="btn btn-ghost btn-xs">Preview</button></td>
+              </tr>
+              <tr>
+                <td><strong>SOP Design for Growing Teams</strong></td>
+                <td>Marcus Torres</td>
+                <td><span class="badge badge-blue">Operations</span></td>
+                <td>148</td>
+                <td>$39</td>
+                <td><span class="badge badge-green">Published</span></td>
+                <td>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked onchange="handleToggle(this,'SOP Design for Growing Teams','visibility')">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </td>
+                <td><button class="btn btn-ghost btn-xs">Preview</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══════════ TAB: LEARNERS ══════════ -->
+      <div class="tab-panel" id="learners-tab">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
+          <div class="section-title" style="margin-bottom:0">All Learners <span class="badge badge-blue" style="vertical-align:middle">2,841</span></div>
+          <div class="search-wrap"><input class="search-input" placeholder="Search learners…" oninput="filterTable(this,'learners-table')"></div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <table class="data-table" id="learners-table">
+            <thead><tr><th>Learner</th><th>Enrolled courses</th><th>Last active</th><th>Status</th><th>Account Active</th></tr></thead>
+            <tbody>
+              <tr><td><strong>James Rivera</strong><br><span class="text-muted text-sm">james@example.com</span></td><td>3</td><td>Today</td><td><span class="status-dot active"></span> Active</td><td><label class="toggle-switch"><input type="checkbox" checked onchange="handleToggle(this,'James Rivera','account')"><span class="toggle-slider"></span></label></td></tr>
+              <tr><td><strong>Tanya Morris</strong><br><span class="text-muted text-sm">tanya@example.com</span></td><td>2</td><td>2 days ago</td><td><span class="status-dot active"></span> Active</td><td><label class="toggle-switch"><input type="checkbox" checked onchange="handleToggle(this,'Tanya Morris','account')"><span class="toggle-slider"></span></label></td></tr>
+              <tr><td><strong>Chris Babcock</strong><br><span class="text-muted text-sm">chris@example.com</span></td><td>1</td><td>2 weeks ago</td><td><span class="status-dot pending"></span> Inactive</td><td><label class="toggle-switch"><input type="checkbox" checked onchange="handleToggle(this,'Chris Babcock','account')"><span class="toggle-slider"></span></label></td></tr>
+              <tr class="disabled-row"><td><strong>Spambot999</strong><br><span class="text-muted text-sm">spam@fake.xyz</span></td><td>0</td><td>Never</td><td><span class="status-dot inactive"></span> Banned</td><td><label class="toggle-switch"><input type="checkbox" onchange="handleToggle(this,'Spambot999','account')"><span class="toggle-slider"></span></label></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══════════ TAB: REVENUE ══════════ -->
+      <div class="tab-panel" id="revenue-tab">
+        <div class="section-title">Revenue Overview</div>
+        <div class="stats-grid">
+          <div class="card big-stat"><div class="big-stat-num">$940</div><div class="big-stat-label">MRR (subscriptions)</div><div class="big-stat-delta up">↑ +$160 vs last month</div></div>
+          <div class="card big-stat"><div class="big-stat-num">47</div><div class="big-stat-label">Paid subscribers</div><div class="big-stat-delta up">39 Starter · 0 Pro</div></div>
+          <div class="card big-stat"><div class="big-stat-num">$0</div><div class="big-stat-label">Platform commission</div><div class="big-stat-delta" style="color:var(--gray-400)">By design — 0%</div></div>
+          <div class="card big-stat"><div class="big-stat-num">2</div><div class="big-stat-label">Failed payments</div><div class="big-stat-delta warn">⚠ Action needed</div></div>
+        </div>
+        <div class="card">
+          <div class="section-title">Subscription Breakdown</div>
+          <table class="data-table">
+            <thead><tr><th>Plan</th><th>Active accounts</th><th>Monthly rate</th><th>MRR contribution</th><th>Churned this month</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge badge-gray">Free</span></td><td>8</td><td>$0</td><td>—</td><td>2</td></tr>
+              <tr><td><span class="badge badge-blue">Starter</span></td><td>39</td><td>$20</td><td style="font-weight:700;color:var(--blue)">$780</td><td>1</td></tr>
+              <tr><td><span class="badge badge-gold">Pro (coming soon)</span></td><td>—</td><td>$35</td><td>—</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══════════ TAB: ACCESS CONTROL ══════════ -->
+      <div class="tab-panel" id="access-tab">
+        <div class="section-title">Access Control — Disable / Enable Users &amp; Courses</div>
+        <div class="alert-bar warn">⚠️ Toggling a user OFF immediately prevents login and hides their courses. Toggling a course OFF hides it from public view but preserves enrolled learners' access.</div>
+
+        <div class="two-col-grid">
+          <div class="card" style="padding:0">
+            <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between">
+              <div class="section-title" style="margin:0">Instructor Accounts</div>
+              <span class="badge badge-red">2 disabled</span>
+            </div>
+            <div>
+              <div class="control-row">
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem">Sarah Kim</div>
+                  <div class="text-sm text-muted">3 courses · 212 learners · Starter</div>
+                </div>
+                <label class="toggle-switch" title="Disable/enable account">
+                  <input type="checkbox" checked onchange="handleToggle(this,'Sarah Kim','account')">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="control-row">
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem">Priya Nair</div>
+                  <div class="text-sm text-muted">5 courses · 620 learners · Starter</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked onchange="handleToggle(this,'Priya Nair','account')">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="control-row" style="background:var(--admin-red-50)">
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem;color:var(--admin-red)">Tom Garza <span class="badge badge-red" style="margin-left:0.3rem">Overdue</span></div>
+                  <div class="text-sm text-muted">2 courses · Payment failed 12/1/25</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" onchange="handleToggle(this,'Tom Garza','account')">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="control-row">
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem">Jordan Lee</div>
+                  <div class="text-sm text-muted">4 courses · 390 learners · Starter</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked onchange="handleToggle(this,'Jordan Lee','account')">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="control-row">
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem">Alicia Vega</div>
+                  <div class="text-sm text-muted">3 courses · 280 learners · Starter</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked onchange="handleToggle(this,'Alicia Vega','account')">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="padding:0">
+            <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between">
+              <div class="section-title" style="margin:0">Course Visibility</div>
+              <span class="badge badge-orange">4 hidden</span>
+            </div>
+            <div>
+              <div class="control-row">
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem">Email Marketing Mastery</div>
+                  <div class="text-sm text-muted">Sarah Kim · 212 learners</div>
+                </div>
+                <label class="toggle-switch" title="Show/hide from public">
+                  <input type="checkbox" checked onchange="handleToggle(this,'Email Marketing Mastery','visibility')">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="control-row">
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem">First-Time Manager Bootcamp</div>
+                  <div class="text-sm text-muted">Priya Nair · 198 learners</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked onchange="handleToggle(this,'First-Time Manager Bootcamp','visibility')">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="control-row" style="background:var(--admin-red-50)">
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem;color:var(--admin-red)">Cold Email for B2B Sales <span class="badge badge-red" style="margin-left:0.3rem">Hidden</span></div>
+                  <div class="text-sm text-muted">Tom Garza · non-payment</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" onchange="handleToggle(this,'Cold Email for B2B Sales','visibility')">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="control-row">
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem">AI Tools for Everyday Work</div>
+                  <div class="text-sm text-muted">Alicia Vega · 163 learners</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked onchange="handleToggle(this,'AI Tools for Everyday Work','visibility')">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="control-row">
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem">SOP Design for Growing Teams</div>
+                  <div class="text-sm text-muted">Marcus Torres · 148 learners</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked onchange="handleToggle(this,'SOP Design for Growing Teams','visibility')">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ TAB: FLAGS ══════════ -->
+      <div class="tab-panel" id="flags-tab">
+        <div class="section-title">Flagged Content &amp; Reports</div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <table class="data-table">
+            <thead><tr><th>Reported item</th><th>Type</th><th>Reported by</th><th>Reason</th><th>Date</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>Cold Email for B2B Sales</strong><br><span class="text-sm text-muted">by Tom Garza</span></td>
+                <td><span class="badge badge-blue">Course</span></td>
+                <td>Learner: J. Rivera</td>
+                <td>Misleading description</td>
+                <td>Dec 10, 2025</td>
+                <td>
+                  <div style="display:flex;gap:0.4rem;flex-wrap:wrap">
+                    <button class="btn btn-ghost btn-xs" onclick="alert('Opening course for review')">Review</button>
+                    <button class="btn btn-danger btn-xs" onclick="alert('Course hidden from public')">Hide course</button>
+                    <button class="btn btn-ghost btn-xs" onclick="alert('Flag dismissed')">Dismiss</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Rob Ellis</strong><br><span class="text-sm text-muted">rob@example.com</span></td>
+                <td><span class="badge badge-orange">User</span></td>
+                <td>System (signup pattern)</td>
+                <td>Suspected duplicate account</td>
+                <td>Dec 9, 2025</td>
+                <td>
+                  <div style="display:flex;gap:0.4rem;flex-wrap:wrap">
+                    <button class="btn btn-ghost btn-xs">View account</button>
+                    <button class="btn btn-danger btn-xs" onclick="alert('Account disabled')">Disable</button>
+                    <button class="btn btn-ghost btn-xs" onclick="alert('Flag dismissed')">Dismiss</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ══ TOAST ══ -->
+<div id="toast" style="display:none;position:fixed;bottom:1.5rem;right:1.5rem;padding:0.75rem 1.25rem;border-radius:8px;font-size:0.9rem;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2);color:white;max-width:320px"></div>
+
+<script>
+// Tab switching
+function showTab(tabId, btn, tabGroupId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById(tabId);
+  if (panel) panel.classList.add('active');
+  if (tabGroupId && btn) {
+    document.querySelectorAll('#' + tabGroupId + ' .pill-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+}
+
+// Toggle handler
+function handleToggle(checkbox, name, type) {
+  const enabled = checkbox.checked;
+  const action = type === 'visibility'
+    ? (enabled ? `"${name}" is now VISIBLE to the public.` : `"${name}" is now HIDDEN from public view.`)
+    : (enabled ? `${name}'s account is now ENABLED.` : `${name}'s account has been DISABLED. They cannot log in.`);
+  toast(action, enabled ? '#16a34a' : '#dc2626');
+  // TODO: Supabase
+  // await supabase.from(type === 'visibility' ? 'courses' : 'profiles')
+  //   .update({ [type === 'visibility' ? 'is_visible' : 'is_active']: enabled })
+  //   .eq('name', name)
+}
+
+// Impersonate (stub)
+function impersonateAlert(name) {
+  if (confirm(`Log in as ${name} to see their instructor view?\n\nThis will open their dashboard. You can return to admin by logging out.`)) {
+    toast(`Impersonating ${name}… (stub — connect to Supabase auth)`, '#1E3A8A');
+  }
+}
+
+function viewInstructor(name) {
+  toast(`Opening profile for ${name}`, '#1E3A8A');
+}
+
+// Table filter
+function filterTable(input, tableId) {
+  const val = input.value.toLowerCase();
+  document.querySelectorAll('#' + tableId + ' tbody tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(val) ? '' : 'none';
+  });
+}
+
+function filterTableBySelect(sel, tableId, colIdx) {
+  const val = sel.value.toLowerCase();
+  document.querySelectorAll('#' + tableId + ' tbody tr').forEach(row => {
+    const cell = row.cells[colIdx];
+    row.style.display = (!val || (cell && cell.textContent.toLowerCase().includes(val))) ? '' : 'none';
+  });
+}
+
+// Mobile sidebar
+function toggleSidebar() {
+  document.querySelector('.app-sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+document.getElementById('overlay').addEventListener('click', () => {
+  document.querySelector('.app-sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+});
+
+// Toast
+function toast(msg, color) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = color;
+  t.style.display = 'block';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.style.display = 'none', 3500);
+}
+</script>
+</body>
+</html>
