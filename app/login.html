@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Log In — LearnAtYourOwnPace</title>
   <link rel="stylesheet" href="assets/css/app.css" />
+  <style>
+  .spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(30,58,138,0.3);
+    border-top-color: #1E3A8A;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
 </head>
 <body>
 <div class="login-shell">
@@ -34,7 +50,8 @@
       <div id="login-error" style="display:none;padding:0.65rem 1rem;border-radius:6px;
   font-size:0.85rem;background:#fef2f2;color:#dc2626;
   border:1px solid #fecaca;margin-bottom:0.75rem"></div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem" onclick="handleLogin()">Log in</button>
+<button id="login-btn" class="btn btn-primary" style="width:100%;justify-content:center" 
+  onclick="handleLogin()">Log in</button>
 
       <div style="text-align:center;margin-top:1.25rem;font-size:0.85rem;color:var(--text-light)">
         Don't have an account? <a href="../pricing.html" style="color:var(--blue);font-weight:600">Sign up free</a>
@@ -55,6 +72,50 @@
 <!--Login Script -->
 <script>
 async function handleLogin() {
+  // Show loading state
+  const btn = document.getElementById('login-btn')
+  btn.disabled = true
+  btn.innerHTML = '<span class="spinner"></span> Logging in…'
+
+  const email = document.getElementById('email').value.trim()
+  const password = document.getElementById('password').value.trim()
+  const errorBox = document.getElementById('login-error')
+
+  if (!email || !password) {
+    errorBox.textContent = 'Please enter your email and password.'
+    errorBox.style.display = 'block'
+    // Reset button
+    btn.disabled = false
+    btn.innerHTML = 'Log in'
+    return
+  }
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password })
+
+  if (error) {
+    errorBox.textContent = error.message
+    errorBox.style.display = 'block'
+    // Reset button
+    btn.disabled = false
+    btn.innerHTML = 'Log in'
+    return
+  }
+
+  const { data: profile } = await supabaseClient
+    .from('profiles')
+    .select('role')
+    .eq('email', email)
+    .single()
+
+  if (profile?.role === 'superadmin') {
+    window.location.href = 'admin-dashboard.html'
+  } else if (profile?.role === 'admin') {
+    window.location.href = 'dashboard-instructor.html'
+  } else {
+    window.location.href = 'dashboard-learner.html'
+  }
+}
+  {
   const email = document.getElementById('email').value.trim()
   const password = document.getElementById('password').value.trim()
   const errorBox = document.getElementById('login-error')
