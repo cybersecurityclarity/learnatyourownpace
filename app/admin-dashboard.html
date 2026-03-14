@@ -702,7 +702,36 @@
 <div id="toast" style="display:none;position:fixed;bottom:1.5rem;right:1.5rem;padding:0.75rem 1.25rem;border-radius:8px;font-size:0.9rem;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2);color:white;max-width:320px"></div>
 
 <script>
-// Tab switching
+// Load real user data on page load
+async function loadAdminData() {
+  // Get the logged in user's session
+  const { data: { user } } = await supabaseClient.auth.getUser()
+
+  // If nobody is logged in, send them to login page
+  if (!user) {
+    window.location.href = 'login.html'
+    return
+  }
+
+  // Get their profile from the profiles table
+  const { data: profile } = await supabaseClient
+    .from('profiles')
+    .select('*')
+    .eq('email', user.email)
+    .single()
+
+  // Update the name shown in the sidebar
+  if (profile) {
+    const nameEl = document.querySelector('.sidebar-user-name')
+    const roleEl = document.querySelector('.sidebar-user-role')
+    if (nameEl) nameEl.textContent = profile.full_name || user.email
+    if (roleEl) roleEl.textContent = 'Super Admin'
+  }
+}
+
+// Run it when the page loads
+loadAdminData()
+  // Tab switching
 function showTab(tabId, btn, tabGroupId) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   const panel = document.getElementById(tabId);
@@ -778,7 +807,7 @@ function toast(msg, color) {
 <!-- Supabase API Connection -->
    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-      const supabase = window.supabase.createClient(
+      window.supabaseClient = window.supabase.createClient(
         'https://cgjbrwlhuffnjkwwpaco.supabase.co',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamJyd2xodWZmbmprd3dwYWNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzkyMjMsImV4cCI6MjA4OTA1NTIyM30.tTFJY3eexqhG0I6LtPxr8t_afG-M_Dbn-Wa1oNqJGH0'
       )
