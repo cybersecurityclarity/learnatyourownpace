@@ -20,14 +20,14 @@
 
       <div class="form-group">
         <label class="form-label">Email</label>
-        <input type="email" class="form-input" placeholder="you@example.com" />
+        <input type="email" id="email" class="form-input" placeholder="you@example.com" />
       </div>
       <div class="form-group">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem">
           <label class="form-label" style="margin-bottom:0">Password</label>
           <a href="#" style="font-size:0.78rem;color:var(--blue)">Forgot password?</a>
         </div>
-        <input type="password" class="form-input" placeholder="••••••••" />
+        <input type="password" id="password" class="form-input" placeholder="••••••••" />
       </div>
 
       <!-- TODO: Supabase auth.signInWithPassword() -->
@@ -65,7 +65,7 @@ async function handleLogin() {
     return
   }
 
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password })
 
   if (error) {
     errorBox.textContent = error.message
@@ -74,7 +74,7 @@ async function handleLogin() {
   }
 
   // Check their role and send them to the right dashboard
-  const { data: profile } = await supabase
+  const { data: profile } = await supabaseClient.from('profiles')
     .from('profiles')
     .select('role')
     .eq('email', email)
@@ -100,7 +100,7 @@ async function handleSignup() {
     return
   }
 
-  const { data, error } = await supabase.auth.signUp({ email, password })
+  const { data, error } = await supabaseClient.auth.signUp({ email, password })
 
   if (error) {
     errorBox.textContent = error.message
@@ -109,7 +109,7 @@ async function handleSignup() {
   }
 
   // Create their profile in the profiles table
-  await supabase.from('profiles').insert({
+  await supabaseClient.from('profiles').insert({
     email: email,
     role: 'learner',
     plan: 'free',
@@ -126,13 +126,13 @@ async function handleSignup() {
 
 
 <!-- Supabase API Connection -->
-   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-      const supabase = window.supabase.createClient(
-        'https://cgjbrwlhuffnjkwwpaco.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamJyd2xodWZmbmprd3dwYWNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzkyMjMsImV4cCI6MjA4OTA1NTIyM30.tTFJY3eexqhG0I6LtPxr8t_afG-M_Dbn-Wa1oNqJGH0'
-      )
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  window.supabaseClient = window.supabase.createClient(
+    'https://cgjbrwlhuffnjkwwpaco.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamJyd2xodWZmbmprd3dwYWNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzkyMjMsImV4cCI6MjA4OTA1NTIyM30.tTFJY3eexqhG0I6LtPxr8t_afG-M_Dbn-Wa1oNqJGH0'
+  )
+</script>
 </body>
 </html>
 
