@@ -73,8 +73,8 @@ async function handleLogin() {
     return
   }
 
-  // Check their role and send them to the right dashboard
-  const { data: profile } = await supabaseClient.from('profiles')
+// Check their role and send them to the right dashboard
+  const { data: profile } = await supabaseClient
     .from('profiles')
     .select('role')
     .eq('email', email)
