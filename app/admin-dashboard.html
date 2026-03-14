@@ -726,14 +726,6 @@ async function loadAdminData() {
     const roleEl = document.querySelector('.sidebar-user-role')
     if (nameEl) nameEl.textContent = profile.full_name || user.email
     if (roleEl) roleEl.textContent = 'Super Admin'
-
-if (profile) {
-    const nameEl = document.querySelector('.sidebar-user-name')
-    const roleEl = document.querySelector('.sidebar-user-role')
-    if (nameEl) nameEl.textContent = profile.full_name || user.email
-    if (roleEl) roleEl.textContent = 'Super Admin'
-
-    // ADD THESE TWO LINES:
     const greetingEl = document.querySelector('.page-header h1')
     if (greetingEl) greetingEl.textContent = 'Welcome, ' + (profile.full_name || user.email) + ' ⚡'
   }
