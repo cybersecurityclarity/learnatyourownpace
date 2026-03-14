@@ -72,7 +72,6 @@
 <!--Login Script -->
 <script>
 async function handleLogin() {
-  // Show loading state
   const btn = document.getElementById('login-btn')
   btn.disabled = true
   btn.innerHTML = '<span class="spinner"></span> Logging in…'
@@ -84,7 +83,6 @@ async function handleLogin() {
   if (!email || !password) {
     errorBox.textContent = 'Please enter your email and password.'
     errorBox.style.display = 'block'
-    // Reset button
     btn.disabled = false
     btn.innerHTML = 'Log in'
     return
@@ -95,7 +93,6 @@ async function handleLogin() {
   if (error) {
     errorBox.textContent = error.message
     errorBox.style.display = 'block'
-    // Reset button
     btn.disabled = false
     btn.innerHTML = 'Log in'
     return
@@ -111,40 +108,6 @@ async function handleLogin() {
     window.location.href = 'admin-dashboard.html'
   } else if (profile?.role === 'admin') {
     window.location.href = 'dashboard-instructor.html'
-  } else {
-    window.location.href = 'dashboard-learner.html'
-  }
-}
-  {
-  const email = document.getElementById('email').value.trim()
-  const password = document.getElementById('password').value.trim()
-  const errorBox = document.getElementById('login-error')
-
-  if (!email || !password) {
-    errorBox.textContent = 'Please enter your email and password.'
-    errorBox.style.display = 'block'
-    return
-  }
-
-  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password })
-
-  if (error) {
-    errorBox.textContent = error.message
-    errorBox.style.display = 'block'
-    return
-  }
-
-// Check their role and send them to the right dashboard
-  const { data: profile } = await supabaseClient
-    .from('profiles')
-    .select('role')
-    .eq('email', email)
-    .single()
-
-  if (profile?.role === 'instructor') {
-    window.location.href = 'dashboard-instructor.html'
-  } else if (profile?.role === 'admin') {
-    window.location.href = 'admin-dashboard.html'
   } else {
     window.location.href = 'dashboard-learner.html'
   }
@@ -169,7 +132,6 @@ async function handleSignup() {
     return
   }
 
-  // Create their profile in the profiles table
   await supabaseClient.from('profiles').insert({
     email: email,
     role: 'learner',
@@ -184,7 +146,6 @@ async function handleSignup() {
   errorBox.style.display = 'block'
 }
 </script>
-
 
 <!-- Supabase API Connection -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
