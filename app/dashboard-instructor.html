@@ -194,6 +194,8 @@ async function requireLogin() {
   const { data: { user } } = await supabaseClient.auth.getUser()
   if (!user) {
     window.location.href = 'login.html'
+  } else {
+    document.body.style.visibility = 'visible'
   }
 }
 requireLogin()
