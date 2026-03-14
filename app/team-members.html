@@ -446,5 +446,14 @@ function toast(msg, color) {
   t._timer = setTimeout(() => t.style.display = 'none', 3500);
 }
 </script>
+
+<!-- Supabase API Connection -->
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const supabase = window.supabase.createClient(
+        'https://cgjbrwlhuffnjkwwpaco.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamJyd2xodWZmbmprd3dwYWNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzkyMjMsImV4cCI6MjA4OTA1NTIyM30.tTFJY3eexqhG0I6LtPxr8t_afG-M_Dbn-Wa1oNqJGH0'
+      )
+    </script>
 </body>
 </html>
